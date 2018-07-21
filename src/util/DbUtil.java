@@ -14,7 +14,7 @@ public class DbUtil {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/swing";
             String username = "root";
-            String password = "";
+            String password = "6771";
             connection = DriverManager.getConnection(url, username, password);
         }catch (Exception e){
             e.printStackTrace();
