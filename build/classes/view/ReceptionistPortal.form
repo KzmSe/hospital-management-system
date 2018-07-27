@@ -141,11 +141,11 @@
                       <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jSeparator4" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                          <Component id="jButtonChangePassword" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonAppoinments" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonProfile" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
                           <Component id="jSeparator1" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonPatientDetails" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jSeparator2" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
                           <Component id="jSeparator3" alignment="0" min="-2" pref="129" max="-2" attributes="0"/>
                       </Group>
@@ -157,19 +157,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="jButtonProfile" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="jButtonPatientDetails" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="jButtonAppoinments" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="jButtonChangePassword" min="-2" pref="36" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="95" max="32767" attributes="0"/>
@@ -178,7 +178,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="jButtonProfile">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
@@ -192,7 +192,7 @@
                 <Property name="text" type="java.lang.String" value="Profile"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="jButtonPatientDetails">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
@@ -206,7 +206,7 @@
                 <Property name="text" type="java.lang.String" value="Patient Details"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="jButtonAppoinments">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
@@ -220,7 +220,7 @@
                 <Property name="text" type="java.lang.String" value="Appoinments"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="jButtonChangePassword">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>

@@ -1,7 +1,9 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,7 +19,7 @@ public class Patient {
     private String patientType;
     private int wardNo;
     private int bedNo;
-    private LocalDateTime date;
+    private Date date;
     private String image;
     private String bloodGroup;
     private List<Appointment> appointments;
@@ -26,7 +28,7 @@ public class Patient {
         appointments = new ArrayList<>();
     }
 
-    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, LocalDateTime date, String image, String bloodGroup, List<Appointment> appointments) {
+    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, Date date, String image, String bloodGroup, List<Appointment> appointments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -124,11 +126,11 @@ public class Patient {
         this.bedNo = bedNo;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -160,5 +162,5 @@ public class Patient {
     public String toString() {
         return "Patient{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", address=" + address + ", phoneNumber=" + phoneNumber + ", patientType=" + patientType + ", wardNo=" + wardNo + ", bedNo=" + bedNo + ", date=" + date + ", image=" + image + ", bloodGroup=" + bloodGroup + ", appointments=" + appointments + '}';
     }
-    
+
 }

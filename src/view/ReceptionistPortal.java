@@ -33,10 +33,10 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButtonProfile = new javax.swing.JButton();
+        jButtonPatientDetails = new javax.swing.JButton();
+        jButtonAppoinments = new javax.swing.JButton();
+        jButtonChangePassword = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -83,25 +83,25 @@ public class ReceptionistPortal extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jButton2.setBackground(new java.awt.Color(153, 153, 153));
-        jButton2.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 0, 51));
-        jButton2.setText("Profile");
+        jButtonProfile.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonProfile.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jButtonProfile.setForeground(new java.awt.Color(204, 0, 51));
+        jButtonProfile.setText("Profile");
 
-        jButton3.setBackground(new java.awt.Color(153, 153, 153));
-        jButton3.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(204, 0, 51));
-        jButton3.setText("Patient Details");
+        jButtonPatientDetails.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonPatientDetails.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jButtonPatientDetails.setForeground(new java.awt.Color(204, 0, 51));
+        jButtonPatientDetails.setText("Patient Details");
 
-        jButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jButton4.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(204, 0, 51));
-        jButton4.setText("Appoinments");
+        jButtonAppoinments.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonAppoinments.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jButtonAppoinments.setForeground(new java.awt.Color(204, 0, 51));
+        jButtonAppoinments.setText("Appoinments");
 
-        jButton5.setBackground(new java.awt.Color(153, 153, 153));
-        jButton5.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(204, 0, 51));
-        jButton5.setText("Change Password");
+        jButtonChangePassword.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonChangePassword.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jButtonChangePassword.setForeground(new java.awt.Color(204, 0, 51));
+        jButtonChangePassword.setText("Change Password");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -111,11 +111,11 @@ public class ReceptionistPortal extends javax.swing.JFrame {
                 .addGap(109, 109, 109)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonChangePassword)
+                    .addComponent(jButtonAppoinments)
+                    .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
+                    .addComponent(jButtonPatientDetails)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -124,19 +124,19 @@ public class ReceptionistPortal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPatientDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonAppoinments, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(95, Short.MAX_VALUE))
@@ -183,7 +183,8 @@ public class ReceptionistPortal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        new UserPass().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -223,10 +224,10 @@ public class ReceptionistPortal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonAppoinments;
+    private javax.swing.JButton jButtonChangePassword;
+    private javax.swing.JButton jButtonPatientDetails;
+    private javax.swing.JButton jButtonProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

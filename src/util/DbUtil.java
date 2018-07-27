@@ -10,14 +10,17 @@ public class DbUtil {
     
     public static Connection getConnection(){
         Connection connection = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/clinic";
             String username = Config.getDbUsername();
             String password = Config.getDbPassword();
             connection = DriverManager.getConnection(url, username, password);
+            
         }catch (Exception e){
             e.printStackTrace();
+            
         }
         return connection;
     }

@@ -11,9 +11,8 @@ package view;
  */
 public class LoginAs extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LoginAs
-     */
+    private String loginAs;
+    
     public LoginAs() {
         initComponents();
     }
@@ -77,11 +76,29 @@ public class LoginAs extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/doctor_icon.png"))); // NOI18N
 
+        jButtonAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonAdmin.setText("Admin");
+        jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdminActionPerformed(evt);
+            }
+        });
 
+        jButtonReceptionist.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonReceptionist.setText("Receptionist");
+        jButtonReceptionist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReceptionistActionPerformed(evt);
+            }
+        });
 
+        jButtonDoctor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonDoctor.setText("Doctor");
+        jButtonDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDoctorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -152,6 +169,24 @@ public class LoginAs extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
+        loginAs = "admin";
+        new UserPass(loginAs).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonAdminActionPerformed
+
+    private void jButtonReceptionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReceptionistActionPerformed
+        loginAs = "receptionist";
+        new UserPass(loginAs).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonReceptionistActionPerformed
+
+    private void jButtonDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDoctorActionPerformed
+        loginAs = "doctor";
+        new UserPass(loginAs).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonDoctorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -200,4 +235,6 @@ public class LoginAs extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
+
+    
 }

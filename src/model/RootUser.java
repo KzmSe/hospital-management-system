@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDateTime;
 
 
-public class Admin {
+public class RootUser {
     
     private int id;
     private String username;
@@ -12,10 +12,10 @@ public class Admin {
     private String lastName;
     private LocalDateTime lastLoginDate;
 
-    public Admin() {
+    public RootUser() {
     }
 
-    public Admin(int id, String username, String password, String firstName, String lastName, LocalDateTime lastLoginDate) {
+    public RootUser(int id, String username, String password, String firstName, String lastName, LocalDateTime lastLoginDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -74,7 +74,7 @@ public class Admin {
 
     @Override
     public String toString() {
-        return "Admin{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", lastLoginDate=" + lastLoginDate + '}';
+        return "RootUser{" + "id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", lastLoginDate=" + lastLoginDate + '}';
     }
       
 }
