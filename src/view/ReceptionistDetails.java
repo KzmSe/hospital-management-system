@@ -5,17 +5,26 @@
  */
 package view;
 
+import dao.ReceptionistDaoImpl;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Patient;
+import model.Receptionist;
+import view.dialogs.DialogAddReceptionist;
+import view.dialogs.DialogUpdateReceptionist;
+
 /**
  *
  * @author Lenovo
  */
 public class ReceptionistDetails extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReceptionistDetails
-     */
+    private ReceptionistDaoImpl receptionistDaoImpl;
+    
     public ReceptionistDetails() {
         initComponents();
+        customInit();
     }
 
     /**
@@ -34,7 +43,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableReceptionist = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
@@ -46,6 +55,11 @@ public class ReceptionistDetails extends javax.swing.JFrame {
 
         jButtonBack.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         jButtonBack.setText("Back");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         jTextFieldSearch.setText("SEARCH PATIENT");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
@@ -77,7 +91,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableReceptionist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,7 +102,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableReceptionist);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -185,16 +199,36 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTableReceptionist.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableReceptionist.getValueAt(selectedRow, selectedColumn);
+        
+        Receptionist receptionist = receptionistDaoImpl.getReceptionistById(id);
+        
+        new DialogUpdateReceptionist(receptionist).setVisible(true);
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTableReceptionist.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableReceptionist.getValueAt(selectedRow, selectedColumn);
+        
+        boolean result = receptionistDaoImpl.deleteReceptionistById(id);
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Receptionist deleted..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error");
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
+        new DialogAddReceptionist(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        new AdminPortal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,7 +276,35 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableReceptionist;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        receptionistDaoImpl = new ReceptionistDaoImpl();
+        setTableModel();
+    }
+
+    private void setTableModel() {
+        List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
+        DefaultTableModel dtm = new DefaultTableModel();
+        
+        dtm.addColumn("ID");
+        dtm.addColumn("First Name");
+        dtm.addColumn("Last Name");
+        dtm.addColumn("Age");
+        dtm.addColumn("Gender");
+        dtm.addColumn("Address");
+        dtm.addColumn("Phone Number");
+        dtm.addColumn("Last Login Date");
+        dtm.addColumn("Username");
+        dtm.addColumn("Password");
+        
+        for (Receptionist receptionist : receptionists) {
+            Object[] row = {receptionist.getId(), receptionist.getFirstName(), receptionist.getLastName(), receptionist.getAge(), receptionist.getGender(), receptionist.getAddress(), receptionist.getPhoneNumber(), receptionist.getLastLoginDate(), receptionist.getUsername(), receptionist.getPassword()};
+            dtm.addRow(row);
+        }
+        
+        jTableReceptionist.setModel(dtm);
+    }
 }

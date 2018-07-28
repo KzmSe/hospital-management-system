@@ -15,9 +15,15 @@ import model.Patient;
 public interface PatientDao {
     
     Patient getPatient(String username, String password);
+    
     boolean addPatient(Patient patient);
+    
     List<Patient> getAllPanients();
+    
     Patient getPatientById(int id);
+    
     boolean updatePatientById(Patient patient, int id);
+    
     boolean deletePatientById(int id);
+    
 }

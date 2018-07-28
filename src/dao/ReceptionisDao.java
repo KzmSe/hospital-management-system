@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import model.Receptionist;
 
 /**
@@ -15,4 +16,13 @@ public interface ReceptionisDao {
     
     Receptionist getReceptionist(String username, String password);
     
+    List<Receptionist> getAllReceptionists();
+    
+    boolean addReceptionist(Receptionist receptionist);
+    
+    Receptionist getReceptionistById(int id);
+    
+    boolean updateReceptionistById(Receptionist receptionist, int id);
+    
+    boolean deleteReceptionistById(int id);
 }

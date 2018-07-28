@@ -5,18 +5,27 @@
  */
 package view.dialogs;
 
+import dao.ReceptionistDaoImpl;
+import java.util.Date;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import model.Patient;
+import model.Receptionist;
+
 /**
  *
  * @author Lenovo
  */
 public class DialogAddReceptionist extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DialogAddReceptionist
-     */
+    private ReceptionistDaoImpl receptionistDaoImpl;
+    
     public DialogAddReceptionist(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        customInit();
     }
 
     /**
@@ -28,6 +37,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -231,6 +241,11 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         jButtonSelectImage.setText("Select Image");
 
         jButtonAddReceptionist.setText("ADD RECEPTIONIST");
+        jButtonAddReceptionist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddReceptionistActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -310,6 +325,45 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAddReceptionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddReceptionistActionPerformed
+        String firstname = jTextFieldFirstName.getText();
+        String lastname = jTextFieldLastName.getText();
+        int age = Integer.parseInt(jTextFieldAge.getText());
+        String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
+        String address = jComboBoxAddress.getSelectedItem().toString();
+        String username = jTextFieldUsername.getText();
+        String password = String.copyValueOf(jPasswordFieldPassword.getPassword());
+        String gender = null;
+        String image = null;
+        
+        Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
+        while (genderButtons.hasMoreElements()) {
+            JRadioButton current = (JRadioButton) genderButtons.nextElement();
+            if (current.isSelected()) {
+                gender = current.getText();
+            }
+        }
+        
+        Receptionist receptionist = new Receptionist();
+        receptionist.setFirstName(firstname);
+        receptionist.setLastName(lastname);
+        receptionist.setAge(age);
+        receptionist.setPhoneNumber(phoneNumber);
+        receptionist.setAddress(address);
+        receptionist.setLastLoginDate(null);
+        receptionist.setGender(gender);
+        receptionist.setUsername(username);
+        receptionist.setPassword(password);
+        receptionist.setImage(image);
+        
+        boolean result = receptionistDaoImpl.addReceptionist(receptionist);
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Receptionist added..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error..");
+        }
+    }//GEN-LAST:event_jButtonAddReceptionistActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +407,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JButton jButtonAddReceptionist;
     private javax.swing.JButton jButtonSelectImage;
     private javax.swing.JComboBox<String> jComboBoxAddress;
@@ -381,4 +436,11 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldLastName;
     private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        receptionistDaoImpl = new ReceptionistDaoImpl();
+        
+        buttonGroupGender.add(jRadioButtonMale);
+        buttonGroupGender.add(jRadioButtonFemale);
+    }
 }

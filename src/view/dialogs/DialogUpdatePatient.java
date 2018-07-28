@@ -550,8 +550,16 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         jDateChooserJoiningDate.setDate(patient.getDate());
         jComboBoxWardNumber.setSelectedItem(String.valueOf(patient.getWardNo()));
         jComboBoxBedNumber.setSelectedItem(String.valueOf(patient.getBedNo()));
-        buttonGroupGender.clearSelection();
-        buttonGroupPatientType.clearSelection();
+        if (patient.getGender().equals("Male")) {
+            jRadioButtonMale.setSelected(true);
+        } else if (patient.getGender().equals("Female")) {
+            jRadioButtonFemale.setSelected(true);
+        }
+        if (patient.getPatientType().equals("Indoor")) {
+            jRadioButtonIndoor.setSelected(true);
+        } else if (patient.getPatientType().equals("Outdoor")) {
+            jRadioButtonOutdoor.setSelected(true);
+        }
         //setImage
         
     }
