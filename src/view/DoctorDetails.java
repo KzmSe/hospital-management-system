@@ -5,17 +5,25 @@
  */
 package view;
 
+import dao.DoctorDaoImpl;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Doctor;
+import view.dialogs.DialogAddDoctor;
+import view.dialogs.DialogUpdateDoctor;
+
 /**
  *
  * @author Lenovo
  */
 public class DoctorDetails extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DoctorDetails
-     */
+    DoctorDaoImpl doctorDaoImpl;
+    
     public DoctorDetails() {
         initComponents();
+        customInit();
     }
 
     /**
@@ -34,7 +42,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableDoctor = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButtonDelete = new javax.swing.JButton();
         jButtonUpdate = new javax.swing.JButton();
@@ -44,6 +52,11 @@ public class DoctorDetails extends javax.swing.JFrame {
 
         jButtonBack.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         jButtonBack.setText("Back");
+        jButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBackActionPerformed(evt);
+            }
+        });
 
         jTextFieldSearch.setText("SEARCH DOCTOR");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
@@ -75,7 +88,7 @@ public class DoctorDetails extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -86,7 +99,7 @@ public class DoctorDetails extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableDoctor);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -186,16 +199,37 @@ public class DoctorDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTableDoctor.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableDoctor.getValueAt(selectedRow, selectedColumn);
+        
+        boolean result = doctorDaoImpl.deleteDoctorById(id);
+        
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Doctor deleted..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error..");
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTableDoctor.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableDoctor.getValueAt(selectedRow, selectedColumn);
+        
+        Doctor doctor = doctorDaoImpl.getDoctorById(id);
+        
+        new DialogUpdateDoctor(doctor).setVisible(true);
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
+        new DialogAddDoctor(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
+        new AdminPortal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,7 +277,36 @@ public class DoctorDetails extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableDoctor;
     private javax.swing.JTextField jTextFieldSearch;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        doctorDaoImpl = new DoctorDaoImpl();
+        setTableModel();
+    }
+
+    private void setTableModel() {
+        List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
+        DefaultTableModel dtm = new DefaultTableModel();
+        
+        dtm.addColumn("ID");
+        dtm.addColumn("First Name");
+        dtm.addColumn("Last Name");
+        dtm.addColumn("Age");
+        dtm.addColumn("Gender");
+        dtm.addColumn("Rank");
+        dtm.addColumn("Phone Number");
+        dtm.addColumn("Image");
+        dtm.addColumn("Last Login Date");
+        dtm.addColumn("Username");
+        dtm.addColumn("Password");
+        
+        for (Doctor doctor : doctors) {
+            Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getRank(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
+            dtm.addRow(row);
+        }
+        
+        jTableDoctor.setModel(dtm);
+    }
 }

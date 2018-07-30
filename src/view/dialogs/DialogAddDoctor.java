@@ -5,18 +5,26 @@
  */
 package view.dialogs;
 
+
+import dao.DoctorDaoImpl;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import model.Doctor;
+
 /**
  *
  * @author Lenovo
  */
 public class DialogAddDoctor extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DialogAddDoctor
-     */
+    private DoctorDaoImpl doctorDaoImpl;
+    
     public DialogAddDoctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        customInit();
     }
 
     /**
@@ -28,6 +36,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -216,6 +225,11 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         jButtonSelectImage.setText("Select Image");
 
         jButtonAddDoctor.setText("ADD DOCTOR");
+        jButtonAddDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddDoctorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -308,6 +322,45 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAddDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDoctorActionPerformed
+        String firstname = jTextFieldFirstName.getText();
+        String lastname = jTextFieldLastName.getText();
+        int age = Integer.parseInt(jTextFieldAge.getText());
+        String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
+        String rank = jComboBoxRank.getSelectedItem().toString();
+        String username = jTextFieldUsername.getText();
+        String password = String.copyValueOf(jPasswordFieldPassword.getPassword());
+        String gender = null;
+        String image = null;
+        
+        Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
+        while (genderButtons.hasMoreElements()) {
+            JRadioButton current = (JRadioButton) genderButtons.nextElement();
+            if (current.isSelected()) {
+                gender = current.getText();
+            }
+        }
+        
+        Doctor doctor = new Doctor();
+        doctor.setFirstName(firstname);
+        doctor.setLastName(lastname);
+        doctor.setAge(age);
+        doctor.setPhoneNumber(phoneNumber);
+        doctor.setRank(rank);
+        doctor.setLastLoginDate(null);
+        doctor.setGender(gender);
+        doctor.setUsername(username);
+        doctor.setPassword(password);
+        doctor.setImage(image);
+        
+        boolean result = doctorDaoImpl.addDoctor(doctor);
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Doctor added..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error..");
+        }
+    }//GEN-LAST:event_jButtonAddDoctorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -351,6 +404,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JButton jButtonAddDoctor;
     private javax.swing.JButton jButtonSelectImage;
     private javax.swing.JComboBox<String> jComboBoxRank;
@@ -379,4 +433,11 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldLastName;
     private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        doctorDaoImpl = new DoctorDaoImpl();
+        
+        buttonGroupGender.add(jRadioButtonMale);
+        buttonGroupGender.add(jRadioButtonFemale);
+    }
 }

@@ -21,16 +21,16 @@ import model.RootUser;
 public class UserPass extends javax.swing.JFrame {
 
     private String loginAs;
-    private RootUserDaoImpl rootUserDaoImpl;
-    private ReceptionistDaoImpl receptionistDaoImpl;
-    private DoctorDaoImpl doctorDaoImpl;
+    private RootUserDaoImpl rootUserDaoImpl = new RootUserDaoImpl();
+    private ReceptionistDaoImpl receptionistDaoImpl = new ReceptionistDaoImpl();
+    private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
     
     public UserPass() {
         initComponents();
         customInit();
     }
 
-    UserPass(String loginAs) {
+    public UserPass(String loginAs) {
         this();
         this.loginAs = loginAs;
     }
@@ -344,8 +344,6 @@ public class UserPass extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
-        rootUserDaoImpl = new RootUserDaoImpl();
-        receptionistDaoImpl = new ReceptionistDaoImpl();
-        doctorDaoImpl = new DoctorDaoImpl();
+        
     }
 }

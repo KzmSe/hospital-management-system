@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,14 @@ public class Doctor {
     private int age;
     private String gender;
     private String phoneNumber;
+    private LocalDateTime lastLoginDate;
     private List<Appointment> appointments;
 
     public Doctor() {
         appointments = new ArrayList<>();
     }
 
-    public Doctor(int id, String firstName, String lastName, String username, String password, String image, String rank, int age, String gender, String phoneNumber, List<Appointment> appointments) {
+    public Doctor(int id, String firstName, String lastName, String username, String password, String image, String rank, int age, String gender, String phoneNumber, LocalDateTime lastLoginDate, List<Appointment> appointments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,6 +35,7 @@ public class Doctor {
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+        this.lastLoginDate = lastLoginDate;
         this.appointments = appointments;
         appointments = new ArrayList<>();
     }
@@ -117,6 +120,14 @@ public class Doctor {
         this.phoneNumber = phoneNumber;
     }
 
+    public LocalDateTime getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(LocalDateTime lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }
@@ -127,7 +138,7 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", password=" + password + ", image=" + image + ", rank=" + rank + ", age=" + age + ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", appointments=" + appointments + '}';
+        return "Doctor{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", password=" + password + ", image=" + image + ", rank=" + rank + ", age=" + age + ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", lastLoginDate=" + lastLoginDate + ", appointments=" + appointments + '}';
     }
-    
+ 
 }

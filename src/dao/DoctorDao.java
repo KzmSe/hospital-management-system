@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import model.Doctor;
 
 /**
@@ -15,4 +16,13 @@ public interface DoctorDao {
     
     Doctor getDoctor(String username, String password);
     
+    List<Doctor> getAllDoctors();
+    
+    Doctor getDoctorById(int id);
+    
+    boolean deleteDoctorById(int id);
+    
+    boolean addDoctor(Doctor doctor);
+    
+    boolean updateDoctorById(Doctor doctor, int id);
 }

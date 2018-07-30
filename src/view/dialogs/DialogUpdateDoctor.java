@@ -5,18 +5,31 @@
  */
 package view.dialogs;
 
+import dao.DoctorDaoImpl;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import model.Doctor;
+
 /**
  *
  * @author Lenovo
  */
 public class DialogUpdateDoctor extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DialogUpdateDoctor
-     */
+    private Doctor doctor;
+    private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
+    
     public DialogUpdateDoctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public DialogUpdateDoctor(Doctor doctor) {
+        this(new javax.swing.JFrame(), true);
+        this.doctor = doctor;
+        customInit();
     }
 
     /**
@@ -28,6 +41,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -216,6 +230,11 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         jButtonSelectImage.setText("Select Image");
 
         jButtonUpdateDoctor.setText("UPDATE DOCTOR");
+        jButtonUpdateDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateDoctorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -310,6 +329,43 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonUpdateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateDoctorActionPerformed
+        String firstname = jTextFieldFirstName.getText();
+        String lastname = jTextFieldLastName.getText();
+        int age = Integer.parseInt(jTextFieldAge.getText());
+        String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
+        String rank = jComboBoxRank.getSelectedItem().toString();
+        String username = jTextFieldUsername.getText();
+        String password  = String.copyValueOf(jPasswordFieldPassword.getPassword());
+        String gender = null;
+        String image = null;
+        
+        Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
+        while (genderButtons.hasMoreElements()) {
+            JRadioButton current = (JRadioButton) genderButtons.nextElement();
+            if (current.isSelected()) {
+                gender = current.getText();
+            }
+        }
+        
+        doctor.setFirstName(firstname);
+        doctor.setLastName(lastname);
+        doctor.setAge(age);
+        doctor.setPhoneNumber(phoneNumber);
+        doctor.setRank(rank);
+        doctor.setUsername(username);
+        doctor.setPassword(password);
+        doctor.setGender(gender);
+        doctor.setImage(image);
+        
+        boolean result = doctorDaoImpl.updateDoctorById(doctor, doctor.getId());
+        if (result) {
+            JOptionPane.showMessageDialog(this, "Doctor updated..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error..");
+        }
+    }//GEN-LAST:event_jButtonUpdateDoctorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +409,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JButton jButtonSelectImage;
     private javax.swing.JButton jButtonUpdateDoctor;
     private javax.swing.JComboBox<String> jComboBoxRank;
@@ -381,4 +438,22 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldLastName;
     private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        buttonGroupGender.add(jRadioButtonMale);
+        buttonGroupGender.add(jRadioButtonFemale);
+        
+        jTextFieldFirstName.setText(doctor.getFirstName());
+        jTextFieldLastName.setText(doctor.getLastName());
+        jTextFieldAge.setText(String.valueOf(doctor.getAge()));
+        jFormattedTextFieldPhoneNumber.setText(doctor.getPhoneNumber());
+        jComboBoxRank.setSelectedItem(doctor.getRank());
+        jTextFieldUsername.setText(doctor.getUsername());
+        jPasswordFieldPassword.setText(doctor.getPassword());
+        if (doctor.getGender().equals("Male")) {
+            jRadioButtonMale.setSelected(true);
+        } else if (doctor.getGender().equals("Female")) {
+            jRadioButtonFemale.setSelected(true);
+        }
+    }
 }

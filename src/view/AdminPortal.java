@@ -122,6 +122,11 @@ public class AdminPortal extends javax.swing.JFrame {
         jLabel13.setMinimumSize(new java.awt.Dimension(161, 152));
         jLabel13.setPreferredSize(new java.awt.Dimension(161, 152));
         jLabel13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel13MousePressed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/indoor_patients_icon.png"))); // NOI18N
@@ -278,6 +283,11 @@ public class AdminPortal extends javax.swing.JFrame {
         new ReceptionistDetails().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel12MousePressed
+
+    private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
+        new DoctorDetails().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel13MousePressed
 
     /**
      * @param args the command line arguments
