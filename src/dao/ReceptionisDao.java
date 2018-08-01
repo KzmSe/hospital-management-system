@@ -25,4 +25,6 @@ public interface ReceptionisDao {
     boolean updateReceptionistById(Receptionist receptionist, int id);
     
     boolean deleteReceptionistById(int id);
-}
+    
+    boolean updateLastLoginDate(Receptionist receptionist);
+};

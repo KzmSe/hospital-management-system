@@ -8,7 +8,9 @@ package view;
 import dao.DoctorDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Doctor;
 import view.dialogs.DialogAddDoctor;
 import view.dialogs.DialogUpdateDoctor;
@@ -19,7 +21,8 @@ import view.dialogs.DialogUpdateDoctor;
  */
 public class DoctorDetails extends javax.swing.JFrame {
 
-    DoctorDaoImpl doctorDaoImpl;
+    private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
+    private DefaultTableModel dtm = new DefaultTableModel();
     
     public DoctorDetails() {
         initComponents();
@@ -58,8 +61,18 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldSearch.setText("SEARCH DOCTOR");
+        jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
+        jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldSearchMousePressed(evt);
+            }
+        });
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyReleased(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search_icon.png"))); // NOI18N
 
@@ -231,6 +244,16 @@ public class DoctorDetails extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
+    private void jTextFieldSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldSearchMousePressed
+        jTextFieldSearch.setText("");
+    }//GEN-LAST:event_jTextFieldSearchMousePressed
+
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
+        jTableDoctor.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+    }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -282,20 +305,18 @@ public class DoctorDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
-        doctorDaoImpl = new DoctorDaoImpl();
         setTableModel();
     }
 
     private void setTableModel() {
         List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
-        DefaultTableModel dtm = new DefaultTableModel();
         
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
         dtm.addColumn("Age");
         dtm.addColumn("Gender");
-        dtm.addColumn("Rank");
+        dtm.addColumn("Section");
         dtm.addColumn("Phone Number");
         dtm.addColumn("Image");
         dtm.addColumn("Last Login Date");
@@ -303,7 +324,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         dtm.addColumn("Password");
         
         for (Doctor doctor : doctors) {
-            Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getRank(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
+            Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getSection(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
             dtm.addRow(row);
         }
         

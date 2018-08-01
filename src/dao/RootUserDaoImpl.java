@@ -53,6 +53,33 @@ public class RootUserDaoImpl implements RootUserDao{
         
         return rootUser;
     }
+
+    @Override
+    public boolean updateLastLoginDate(RootUser rootUser) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update root_user set last_login_date = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, LocalDateTime.now().toString());
+            ps.setInt(2, rootUser.getId());
+            ps.executeUpdate();
+            result = true;
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
     
     
     

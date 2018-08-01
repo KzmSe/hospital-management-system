@@ -8,7 +8,9 @@ package view;
 import dao.PatientDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Patient;
 import view.dialogs.DialogAddPatient;
 import view.dialogs.DialogUpdatePatient;
@@ -19,10 +21,23 @@ import view.dialogs.DialogUpdatePatient;
  */
 public class PatientDetails extends javax.swing.JFrame {
     
-    private PatientDaoImpl patientDaoImpl;
+    private PatientDaoImpl patientDaoImpl = new PatientDaoImpl();
+    private DefaultTableModel dtm = new DefaultTableModel();
+    private boolean addPatientButton;
+    private boolean updatePatientButton;
+    private boolean deletePatientButton;
+    String backAction;
     
     public PatientDetails() {
         initComponents();
+    }
+    
+    public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction) {
+        this();
+        this.addPatientButton = addButtonVisible;
+        this.updatePatientButton = updateButtonVisible;
+        this.deletePatientButton = deleteButtonVisible;
+        this.backAction = backAction;
         customInit();
     }
 
@@ -61,8 +76,18 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldSearch.setText("SEARCH PATIENT");
+        jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
+        jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldSearchMousePressed(evt);
+            }
+        });
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyReleased(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search_icon.png"))); // NOI18N
 
@@ -225,9 +250,24 @@ public class PatientDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        new AdminPortal().setVisible(true);
-        this.setVisible(false);
+        if (backAction.equals("adminPortal")) {
+            new AdminPortal().setVisible(true);
+            this.setVisible(false);
+        } else if (backAction.equals("receptionistPortal")) {
+            new ReceptionistPortal().setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButtonBackActionPerformed
+
+    private void jTextFieldSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldSearchMousePressed
+        jTextFieldSearch.setText("");
+    }//GEN-LAST:event_jTextFieldSearchMousePressed
+
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
+        jTablePatient.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+    }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
     /**
      * @param args the command line arguments
@@ -280,13 +320,23 @@ public class PatientDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
-        patientDaoImpl = new PatientDaoImpl();
         setTableModel();
+        
+        if (!addPatientButton) {
+            jButtonAdd.setVisible(false);
+        }
+        
+        if (!updatePatientButton) {
+            jButtonAdd.setVisible(false);
+        }
+        
+        if (!deletePatientButton) {
+            jButtonAdd.setVisible(false);
+        }
     }
 
     private void setTableModel() {
         List<Patient> patients = patientDaoImpl.getAllPanients();
-        DefaultTableModel dtm = new DefaultTableModel();
         
         dtm.addColumn("ID");
         dtm.addColumn("First Name");

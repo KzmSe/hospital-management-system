@@ -15,4 +15,5 @@ public interface RootUserDao {
     
     RootUser getRootUser(String username, String password);
     
+    boolean updateLastLoginDate(RootUser rootUser);
 }

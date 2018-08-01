@@ -5,17 +5,26 @@
  */
 package view;
 
+import dao.ReceptionistDaoImpl;
+import model.Receptionist;
+
 /**
  *
  * @author Kazi_tg54
  */
 public class ReceptionistPortal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReceptionistPortal
-     */
+    private Receptionist currentReceptionist;
+    private ReceptionistDaoImpl receptionistDaoImpl = new ReceptionistDaoImpl();
+    
     public ReceptionistPortal() {
         initComponents();
+    }
+
+    ReceptionistPortal(Receptionist currentReceptionist) {
+        this();
+        this.currentReceptionist = currentReceptionist;
+        customInit();
     }
 
     /**
@@ -41,6 +50,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        jLabelLastLoginDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -92,32 +102,50 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         jButtonPatientDetails.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
         jButtonPatientDetails.setForeground(new java.awt.Color(204, 0, 51));
         jButtonPatientDetails.setText("Patient Details");
+        jButtonPatientDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPatientDetailsActionPerformed(evt);
+            }
+        });
 
         jButtonAppoinments.setBackground(new java.awt.Color(153, 153, 153));
         jButtonAppoinments.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
         jButtonAppoinments.setForeground(new java.awt.Color(204, 0, 51));
         jButtonAppoinments.setText("Appoinments");
+        jButtonAppoinments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAppoinmentsActionPerformed(evt);
+            }
+        });
 
         jButtonChangePassword.setBackground(new java.awt.Color(153, 153, 153));
         jButtonChangePassword.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
         jButtonChangePassword.setForeground(new java.awt.Color(204, 0, 51));
         jButtonChangePassword.setText("Change Password");
 
+        jLabelLastLoginDate.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        jLabelLastLoginDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonChangePassword)
-                    .addComponent(jButtonAppoinments)
-                    .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPatientDetails)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonChangePassword)
+                            .addComponent(jButtonAppoinments)
+                            .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPatientDetails)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -139,7 +167,9 @@ public class ReceptionistPortal extends javax.swing.JFrame {
                 .addComponent(jButtonChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -183,9 +213,21 @@ public class ReceptionistPortal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new UserPass().setVisible(true);
+        new LoginAs().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonPatientDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPatientDetailsActionPerformed
+        String backAction = "receptionistPortal";
+        new PatientDetails(true, true, true, backAction).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonPatientDetailsActionPerformed
+
+    private void jButtonAppoinmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAppoinmentsActionPerformed
+        String backAction = "receptionistPortal";
+        new Appointments(true, true, true, backAction).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonAppoinmentsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,6 +272,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelLastLoginDate;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -238,4 +281,10 @@ public class ReceptionistPortal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables
+
+    private void customInit() {
+        String lastLoginDate = currentReceptionist.getLastLoginDate() == null ? "null" : currentReceptionist.getLastLoginDate().toString();
+        jLabelLastLoginDate.setText("Your last login date: " + lastLoginDate);
+        receptionistDaoImpl.updateLastLoginDate(currentReceptionist);
+    }
 }

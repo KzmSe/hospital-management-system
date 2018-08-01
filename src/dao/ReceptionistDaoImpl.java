@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -226,6 +227,33 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
             ps.setInt(1, id);
             ps.executeUpdate();
             result = true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
+
+    @Override
+    public boolean updateLastLoginDate(Receptionist receptionist) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update receptionist set last_login_date = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, LocalDateTime.now().toString());
+            ps.setInt(2, receptionist.getId());
+            ps.executeUpdate();
+            result = true;
+            
             
         } catch (Exception e) {
             e.printStackTrace();

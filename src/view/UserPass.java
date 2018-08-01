@@ -256,7 +256,7 @@ public class UserPass extends javax.swing.JFrame {
         if (loginAs.equals("admin")) {
             RootUser currentRootUser = rootUserDaoImpl.getRootUser(username, password);
             if (currentRootUser != null) {
-                new AdminPortal().setVisible(true);
+                new AdminPortal(currentRootUser).setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Try again..");
@@ -268,7 +268,7 @@ public class UserPass extends javax.swing.JFrame {
         if (loginAs.equals("receptionist")) {
             Receptionist currentReceptionist = receptionistDaoImpl.getReceptionist(username, password);
             if (currentReceptionist != null) {
-                new ReceptionistPortal().setVisible(true);
+                new ReceptionistPortal(currentReceptionist).setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Try again..");
@@ -280,7 +280,7 @@ public class UserPass extends javax.swing.JFrame {
         if (loginAs.equals("doctor")) {
             Doctor currentDoctor = doctorDaoImpl.getDoctor(username, password);
             if (currentDoctor != null) {
-                new DoctorPortal().setVisible(true);
+                new DoctorPortal(currentDoctor).setVisible(true);
                 this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Try again..");

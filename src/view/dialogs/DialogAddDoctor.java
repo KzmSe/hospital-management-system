@@ -123,9 +123,9 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jLabel7.setText("Rank:");
+        jLabel7.setText("Section:");
 
-        jComboBoxRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Baku", "Sumqayit", "Gence", "Mingechevir", "Sheki", "Qazax", "Berde" }));
+        jComboBoxRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cardiology", "Dermatology", "Nephrology", "Allergy & Immunology", "Rheumatology", "Infectious Diseases", "Hematology/Oncology", "General Pediatrics" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -139,7 +139,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
                     .addComponent(jComboBoxRank, 0, 194, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(0, 166, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -327,7 +327,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         String lastname = jTextFieldLastName.getText();
         int age = Integer.parseInt(jTextFieldAge.getText());
         String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
-        String rank = jComboBoxRank.getSelectedItem().toString();
+        String section = jComboBoxRank.getSelectedItem().toString();
         String username = jTextFieldUsername.getText();
         String password = String.copyValueOf(jPasswordFieldPassword.getPassword());
         String gender = null;
@@ -346,7 +346,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         doctor.setLastName(lastname);
         doctor.setAge(age);
         doctor.setPhoneNumber(phoneNumber);
-        doctor.setRank(rank);
+        doctor.setSection(section);
         doctor.setLastLoginDate(null);
         doctor.setGender(gender);
         doctor.setUsername(username);

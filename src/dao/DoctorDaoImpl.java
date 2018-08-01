@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.Doctor;
@@ -41,7 +42,7 @@ public class DoctorDaoImpl implements DoctorDao{
                 doctor.setFirstName(rs.getString("first_name"));
                 doctor.setLastName(rs.getString("last_name"));
                 doctor.setGender(rs.getString("gender"));
-                doctor.setRank(rs.getString("rank"));
+                doctor.setSection(rs.getString("section"));
                 doctor.setAge(rs.getInt("age"));
                 doctor.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setUsername(rs.getNString("username"));
@@ -81,7 +82,7 @@ public class DoctorDaoImpl implements DoctorDao{
                 doctor.setFirstName(rs.getString("first_name"));
                 doctor.setLastName(rs.getString("last_name"));
                 doctor.setGender(rs.getString("gender"));
-                doctor.setRank(rs.getString("rank"));
+                doctor.setSection(rs.getString("section"));
                 doctor.setAge(rs.getInt("age"));
                 doctor.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setUsername(rs.getNString("username"));
@@ -122,7 +123,7 @@ public class DoctorDaoImpl implements DoctorDao{
                 doctor.setFirstName(rs.getString("first_name"));
                 doctor.setLastName(rs.getString("last_name"));
                 doctor.setGender(rs.getString("gender"));
-                doctor.setRank(rs.getString("rank"));
+                doctor.setSection(rs.getString("section"));
                 doctor.setAge(rs.getInt("age"));
                 doctor.setPhoneNumber(rs.getString("phone_number"));
                 doctor.setUsername(rs.getNString("username"));
@@ -173,7 +174,7 @@ public class DoctorDaoImpl implements DoctorDao{
         Connection con = null;
         PreparedStatement ps = null;
         boolean result = false;
-        String sql = "insert into doctor(first_name, last_name, username, password, image, rank, age, gender, phone_number) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into doctor(first_name, last_name, username, password, image, section, age, gender, phone_number) values(?,?,?,?,?,?,?,?,?)";
         
         try {
             con = DbUtil.getConnection();
@@ -183,7 +184,7 @@ public class DoctorDaoImpl implements DoctorDao{
             ps.setString(3, doctor.getUsername());
             ps.setString(4, doctor.getPassword());
             ps.setString(5, doctor.getImage());
-            ps.setString(6, doctor.getRank());
+            ps.setString(6, doctor.getSection());
             ps.setInt(7, doctor.getAge());
             ps.setString(8, doctor.getGender());
             ps.setString(9, doctor.getPhoneNumber());
@@ -206,7 +207,7 @@ public class DoctorDaoImpl implements DoctorDao{
         Connection con = null;
         PreparedStatement ps = null;
         boolean result = false;
-        String sql = "update doctor set first_name = ?, last_name = ?, age = ?, gender = ?, rank = ?, phone_number = ?,"
+        String sql = "update doctor set first_name = ?, last_name = ?, age = ?, gender = ?, section = ?, phone_number = ?,"
                 + "username = ?, password = ?, image = ? where id = ?";
         
         try {
@@ -216,7 +217,7 @@ public class DoctorDaoImpl implements DoctorDao{
             ps.setString(2, doctor.getLastName());
             ps.setInt(3, doctor.getAge());
             ps.setString(4, doctor.getGender());
-            ps.setString(5, doctor.getRank());
+            ps.setString(5, doctor.getSection());
             ps.setString(6, doctor.getPhoneNumber());
             ps.setString(7, doctor.getUsername());
             ps.setString(8, doctor.getPassword());
@@ -224,6 +225,33 @@ public class DoctorDaoImpl implements DoctorDao{
             ps.setInt(10, id);
             ps.executeUpdate();
             result = true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
+
+    @Override
+    public boolean updateLastLoginDate(Doctor doctor) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update doctor set last_login_date = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, LocalDateTime.now().toString());
+            ps.setInt(2, doctor.getId());
+            ps.executeUpdate();
+            result = true;
+            
             
         } catch (Exception e) {
             e.printStackTrace();

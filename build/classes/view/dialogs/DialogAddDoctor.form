@@ -220,7 +220,7 @@
                               <Component id="jComboBoxRank" alignment="0" pref="194" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="166" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -258,20 +258,21 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Rank:"/>
+                    <Property name="text" type="java.lang.String" value="Section:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxRank">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="Baku"/>
-                        <StringItem index="1" value="Sumqayit"/>
-                        <StringItem index="2" value="Gence"/>
-                        <StringItem index="3" value="Mingechevir"/>
-                        <StringItem index="4" value="Sheki"/>
-                        <StringItem index="5" value="Qazax"/>
-                        <StringItem index="6" value="Berde"/>
+                      <StringArray count="8">
+                        <StringItem index="0" value="Cardiology"/>
+                        <StringItem index="1" value="Dermatology"/>
+                        <StringItem index="2" value="Nephrology"/>
+                        <StringItem index="3" value="Allergy &amp; Immunology"/>
+                        <StringItem index="4" value="Rheumatology"/>
+                        <StringItem index="5" value="Infectious Diseases"/>
+                        <StringItem index="6" value="Hematology/Oncology"/>
+                        <StringItem index="7" value="General Pediatrics"/>
                       </StringArray>
                     </Property>
                   </Properties>

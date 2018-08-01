@@ -25,4 +25,6 @@ public interface DoctorDao {
     boolean addDoctor(Doctor doctor);
     
     boolean updateDoctorById(Doctor doctor, int id);
+    
+    boolean updateLastLoginDate(Doctor doctor);
 }

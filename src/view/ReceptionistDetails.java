@@ -8,7 +8,9 @@ package view;
 import dao.ReceptionistDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
 import view.dialogs.DialogAddReceptionist;
@@ -20,7 +22,8 @@ import view.dialogs.DialogUpdateReceptionist;
  */
 public class ReceptionistDetails extends javax.swing.JFrame {
 
-    private ReceptionistDaoImpl receptionistDaoImpl;
+    private ReceptionistDaoImpl receptionistDaoImpl = new ReceptionistDaoImpl();
+    private DefaultTableModel dtm = new DefaultTableModel();
     
     public ReceptionistDetails() {
         initComponents();
@@ -61,8 +64,18 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldSearch.setText("SEARCH PATIENT");
+        jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
+        jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextFieldSearchMousePressed(evt);
+            }
+        });
+        jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyReleased(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search_icon.png"))); // NOI18N
 
@@ -230,6 +243,16 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
+    private void jTextFieldSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldSearchMousePressed
+        jTextFieldSearch.setText("");
+    }//GEN-LAST:event_jTextFieldSearchMousePressed
+
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+        TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
+        jTableReceptionist.setRowSorter(tableRowSorter);
+        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+    }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -281,13 +304,11 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
-        receptionistDaoImpl = new ReceptionistDaoImpl();
         setTableModel();
     }
 
     private void setTableModel() {
         List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
-        DefaultTableModel dtm = new DefaultTableModel();
         
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
