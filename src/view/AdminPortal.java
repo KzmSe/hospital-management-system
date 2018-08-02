@@ -302,7 +302,7 @@ public class AdminPortal extends javax.swing.JFrame {
 
     private void jLabelPatientDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPatientDetailsMousePressed
         String backAction = "adminPortal";
-        new PatientDetails(false, true, true, backAction).setVisible(true);
+        new PatientDetails(false, true, true, backAction, null).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabelPatientDetailsMousePressed
 

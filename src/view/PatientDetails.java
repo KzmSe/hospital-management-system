@@ -9,9 +9,12 @@ import dao.PatientDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
+import model.Receptionist;
 import view.dialogs.DialogAddPatient;
 import view.dialogs.DialogUpdatePatient;
 
@@ -26,18 +29,20 @@ public class PatientDetails extends javax.swing.JFrame {
     private boolean addPatientButton;
     private boolean updatePatientButton;
     private boolean deletePatientButton;
+    private Receptionist currentReceptionist;
     String backAction;
     
     public PatientDetails() {
         initComponents();
     }
     
-    public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction) {
+    public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Receptionist currentReceptionist) {
         this();
         this.addPatientButton = addButtonVisible;
         this.updatePatientButton = updateButtonVisible;
         this.deletePatientButton = deleteButtonVisible;
         this.backAction = backAction;
+        this.currentReceptionist = currentReceptionist;
         customInit();
     }
 
@@ -133,14 +138,15 @@ public class PatientDetails extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
         );
 
         jButtonDelete.setText("Delete Patient");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
@@ -148,6 +154,7 @@ public class PatientDetails extends javax.swing.JFrame {
         });
 
         jButtonUpdate.setText("Update Patient");
+        jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateActionPerformed(evt);
@@ -203,10 +210,10 @@ public class PatientDetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,7 +224,7 @@ public class PatientDetails extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -246,7 +253,7 @@ public class PatientDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        new DialogAddPatient(this, rootPaneCheckingEnabled).setVisible(true);
+        new DialogAddPatient(currentReceptionist).setVisible(true);
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
@@ -254,7 +261,7 @@ public class PatientDetails extends javax.swing.JFrame {
             new AdminPortal().setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
-            new ReceptionistPortal().setVisible(true);
+            new ReceptionistPortal(currentReceptionist).setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonBackActionPerformed
@@ -320,6 +327,14 @@ public class PatientDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
+        jTablePatient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                jButtonUpdate.setEnabled(true);
+                jButtonDelete.setEnabled(true);
+            }
+        });
+        
         setTableModel();
         
         if (!addPatientButton) {
@@ -336,8 +351,6 @@ public class PatientDetails extends javax.swing.JFrame {
     }
 
     private void setTableModel() {
-        List<Patient> patients = patientDaoImpl.getAllPanients();
-        
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -350,12 +363,22 @@ public class PatientDetails extends javax.swing.JFrame {
         dtm.addColumn("Bed №");
         dtm.addColumn("Date");
         dtm.addColumn("Blood Group");
+        dtm.addColumn("Receptionist Name");
         
-        for (Patient patient : patients) {
-            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup()};
-            dtm.addRow(row);
-        }
+        refreshTableRows();
         
         jTablePatient.setModel(dtm);
     }
+
+    private void refreshTableRows() {
+        List<Patient> patients = patientDaoImpl.getAllPanients();
+        dtm.setRowCount(0);
+        
+        for (Patient patient : patients) {
+            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(), patient.getReceptionist().getFirstName()};
+            dtm.addRow(row);
+        }
+    }
+    
+    
 }

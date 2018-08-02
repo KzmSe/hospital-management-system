@@ -26,7 +26,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
+
     public DialogUpdatePatient(Patient patient) {
         this(new javax.swing.JFrame(), true);
         this.patient = patient;

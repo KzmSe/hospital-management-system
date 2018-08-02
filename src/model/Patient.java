@@ -22,13 +22,14 @@ public class Patient {
     private Date date;
     private String image;
     private String bloodGroup;
+    private Receptionist receptionist;
     private List<Appointment> appointments;
 
     public Patient() {
         appointments = new ArrayList<>();
     }
 
-    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, Date date, String image, String bloodGroup, List<Appointment> appointments) {
+    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, Date date, String image, String bloodGroup, Receptionist receptionist, List<Appointment> appointments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +43,7 @@ public class Patient {
         this.date = date;
         this.image = image;
         this.bloodGroup = bloodGroup;
+        this.receptionist = receptionist;
         this.appointments = appointments;
         appointments = new ArrayList<>();
     }
@@ -150,6 +152,14 @@ public class Patient {
         this.bloodGroup = bloodGroup;
     }
 
+    public Receptionist getReceptionist() {
+        return receptionist;
+    }
+
+    public void setReceptionist(Receptionist receptionist) {
+        this.receptionist = receptionist;
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }
@@ -160,7 +170,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", address=" + address + ", phoneNumber=" + phoneNumber + ", patientType=" + patientType + ", wardNo=" + wardNo + ", bedNo=" + bedNo + ", date=" + date + ", image=" + image + ", bloodGroup=" + bloodGroup + ", appointments=" + appointments + '}';
+        return "Patient{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", address=" + address + ", phoneNumber=" + phoneNumber + ", patientType=" + patientType + ", wardNo=" + wardNo + ", bedNo=" + bedNo + ", date=" + date + ", image=" + image + ", bloodGroup=" + bloodGroup + ", receptionist=" + receptionist + ", appointments=" + appointments + '}';
     }
 
 }

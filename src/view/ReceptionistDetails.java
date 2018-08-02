@@ -9,6 +9,8 @@ import dao.ReceptionistDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
@@ -129,6 +131,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         );
 
         jButtonUpdate.setText("Update Receptionist");
+        jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateActionPerformed(evt);
@@ -136,6 +139,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         });
 
         jButtonDelete.setText("Delete Receptionist");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
@@ -304,12 +308,18 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
+        jTableReceptionist.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                jButtonUpdate.setEnabled(true);
+                jButtonDelete.setEnabled(true);
+            }
+        });
+        
         setTableModel();
     }
 
     private void setTableModel() {
-        List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
-        
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -321,11 +331,17 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         dtm.addColumn("Username");
         dtm.addColumn("Password");
         
+        refreshTableRows();
+        
+        jTableReceptionist.setModel(dtm);
+    }
+
+    private void refreshTableRows() {
+        List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
+        
         for (Receptionist receptionist : receptionists) {
             Object[] row = {receptionist.getId(), receptionist.getFirstName(), receptionist.getLastName(), receptionist.getAge(), receptionist.getGender(), receptionist.getAddress(), receptionist.getPhoneNumber(), receptionist.getLastLoginDate(), receptionist.getUsername(), receptionist.getPassword()};
             dtm.addRow(row);
         }
-        
-        jTableReceptionist.setModel(dtm);
     }
 }

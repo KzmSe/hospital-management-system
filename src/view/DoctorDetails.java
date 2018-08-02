@@ -9,6 +9,8 @@ import dao.DoctorDaoImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Doctor;
@@ -146,6 +148,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         );
 
         jButtonDelete.setText("Delete Doctor");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
@@ -153,6 +156,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         });
 
         jButtonUpdate.setText("Update Doctor");
+        jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateActionPerformed(evt);
@@ -305,12 +309,18 @@ public class DoctorDetails extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
+        jTableDoctor.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                jButtonUpdate.setEnabled(true);
+                jButtonDelete.setEnabled(true);
+            }
+        });
+        
         setTableModel();
     }
 
     private void setTableModel() {
-        List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
-        
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -323,11 +333,17 @@ public class DoctorDetails extends javax.swing.JFrame {
         dtm.addColumn("Username");
         dtm.addColumn("Password");
         
+        refreshTableRows();
+        
+        jTableDoctor.setModel(dtm);
+    }
+
+    private void refreshTableRows() {
+        List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
+        
         for (Doctor doctor : doctors) {
             Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getSection(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
             dtm.addRow(row);
         }
-        
-        jTableDoctor.setModel(dtm);
     }
 }

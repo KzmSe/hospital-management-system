@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Patient;
+import model.Receptionist;
 import model.RootUser;
 import util.DbUtil;
 
@@ -69,8 +70,8 @@ public class PatientDaoImpl implements PatientDao{
         Connection con = null;
         PreparedStatement ps = null;
         boolean result = false;
-        String sql = "insert into patient(first_name, last_name, age, gender, address, phone_number, patient_type, ward_no, bed_no, date, image, blood_group)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into patient(first_name, last_name, age, gender, address, phone_number, patient_type, ward_no, bed_no, date, image, blood_group, id_receptionist)"
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             con = DbUtil.getConnection();
@@ -87,6 +88,7 @@ public class PatientDaoImpl implements PatientDao{
             ps.setDate(10, new Date(patient.getDate().getTime()));
             ps.setString(11, patient.getImage());
             ps.setString(12, patient.getBloodGroup());
+            ps.setInt(13, patient.getReceptionist().getId());
             ps.executeUpdate();
             result = true;
             
@@ -108,7 +110,7 @@ public class PatientDaoImpl implements PatientDao{
         ResultSet rs = null;
         List<Patient> patients = new ArrayList<>();
         Patient patient = null;
-        String sql = "select * from patient";
+        String sql = "select p.id, p.first_name as patient_first_name, p.last_name, p.age, p.gender, p.address, p.phone_number, p.patient_type, p.ward_no, p.bed_no, p.date, p.image, p.blood_group, r.first_name as receptionist_first_name from patient p inner join receptionist r on p.id_receptionist=r.id;";
         
         try {
             con = DbUtil.getConnection();
@@ -118,7 +120,7 @@ public class PatientDaoImpl implements PatientDao{
             while (rs.next()) {
                 patient = new Patient();
                 patient.setId(rs.getInt("id"));
-                patient.setFirstName(rs.getString("first_name"));
+                patient.setFirstName(rs.getString("patient_first_name"));
                 patient.setLastName(rs.getString("last_name"));
                 patient.setAge(rs.getInt("age"));
                 patient.setGender(rs.getString("gender"));
@@ -130,6 +132,9 @@ public class PatientDaoImpl implements PatientDao{
                 patient.setDate(rs.getDate("date"));
                 patient.setImage(rs.getString("image"));
                 patient.setBloodGroup(rs.getString("blood_group"));
+                Receptionist receptionist = new Receptionist();
+                receptionist.setFirstName(rs.getString("receptionist_first_name"));
+                patient.setReceptionist(receptionist);
                 
                 patients.add(patient);
             }

@@ -206,6 +206,7 @@
             <Component class="javax.swing.JButton" name="jButtonUpdate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Update Receptionist"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonUpdateActionPerformed"/>
@@ -214,6 +215,7 @@
             <Component class="javax.swing.JButton" name="jButtonDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete Receptionist"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteActionPerformed"/>

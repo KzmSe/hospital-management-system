@@ -219,7 +219,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
 
     private void jButtonPatientDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPatientDetailsActionPerformed
         String backAction = "receptionistPortal";
-        new PatientDetails(true, true, true, backAction).setVisible(true);
+        new PatientDetails(true, true, true, backAction, currentReceptionist).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonPatientDetailsActionPerformed
 

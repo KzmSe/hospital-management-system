@@ -15,6 +15,8 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
+import model.Receptionist;
+import view.PatientDetails;
 
 /**
  *
@@ -23,10 +25,16 @@ import model.Patient;
 public class DialogAddPatient extends javax.swing.JDialog {
 
     private PatientDaoImpl patientDaoImpl;
+    private Receptionist currentReceptionist;
     
     public DialogAddPatient(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public DialogAddPatient(Receptionist curreReceptionist) {
+        this(new javax.swing.JFrame(), true);
+        this.currentReceptionist = curreReceptionist;
         customInit();
     }
 
@@ -432,6 +440,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         patient.setGender(gender);
         patient.setPatientType(patientType);
         patient.setImage(image);
+        patient.setReceptionist(currentReceptionist);
         
         boolean result = patientDaoImpl.addPatient(patient);
         if (result) {
@@ -439,6 +448,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }
+        
     }//GEN-LAST:event_jButtonAddPatientActionPerformed
 
     /**

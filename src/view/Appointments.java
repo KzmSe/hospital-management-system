@@ -6,6 +6,8 @@
 package view;
 
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import view.dialogs.DialogAddAppointment;
@@ -134,6 +136,7 @@ public class Appointments extends javax.swing.JFrame {
         );
 
         jButtonUpdate.setText("Update Appointment");
+        jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateActionPerformed(evt);
@@ -141,6 +144,7 @@ public class Appointments extends javax.swing.JFrame {
         });
 
         jButtonDelete.setText("Delete Appointment");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
@@ -317,6 +321,14 @@ public class Appointments extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {        
+        jTableAppointment.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                jButtonUpdate.setEnabled(true);
+                jButtonDelete.setEnabled(true);
+            }
+        });
+        
         setTableModel();
         
         if (!addAppointmentButton) {
@@ -341,8 +353,12 @@ public class Appointments extends javax.swing.JFrame {
         dtm.addColumn("Patient Fullname");
         dtm.addColumn("Date");
         
-        //add rows
+        refreshTableRows();
         
         jTableAppointment.setModel(dtm);
+    }
+
+    private void refreshTableRows() {
+        
     }
 }
