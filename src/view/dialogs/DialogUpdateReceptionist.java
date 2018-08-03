@@ -11,6 +11,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Receptionist;
+import util.Constants;
 
 /**
  *
@@ -72,7 +73,7 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -360,7 +361,7 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
         
         boolean result = receptionistDaoImpl.updateReceptionistById(receptionist, receptionist.getId());
         if (result) {
-            JOptionPane.showMessageDialog(this, "Receptionist updated..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_UPDATED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

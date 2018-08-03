@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
+import util.Constants;
 import view.dialogs.DialogAddPatient;
 import view.dialogs.DialogUpdatePatient;
 
@@ -237,7 +238,7 @@ public class PatientDetails extends javax.swing.JFrame {
         
         boolean result = patientDaoImpl.deletePatientById(id);
         if (result) {
-            JOptionPane.showMessageDialog(this, "Patient deleted");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_DELETED);
         } else {
             JOptionPane.showMessageDialog(this, "Error");
         }
@@ -370,7 +371,7 @@ public class PatientDetails extends javax.swing.JFrame {
         dtm.addColumn("Bed №");
         dtm.addColumn("Date");
         dtm.addColumn("Blood Group");
-        dtm.addColumn("Receptionist Name");
+        dtm.addColumn("(Rec) Username");
         
         refreshTableRows();
         
@@ -382,7 +383,7 @@ public class PatientDetails extends javax.swing.JFrame {
         dtm.setRowCount(0);
         
         for (Patient patient : patients) {
-            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(), patient.getReceptionist().getFirstName()};
+            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(), patient.getReceptionist().getUsername()};
             dtm.addRow(row);
         }
     }

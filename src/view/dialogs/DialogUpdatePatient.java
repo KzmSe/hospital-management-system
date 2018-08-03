@@ -12,6 +12,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
+import util.Constants;
 
 /**
  *
@@ -82,7 +83,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(54, 71, 96));
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -446,7 +447,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         
         boolean result = patientDaoImpl.updatePatientById(patient, patient.getId());
         if (result) {
-            JOptionPane.showMessageDialog(this, "Patient updated..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_UPDATED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

@@ -11,6 +11,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Doctor;
+import util.Constants;
 
 /**
  *
@@ -72,7 +73,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Main information"));
 
@@ -360,7 +361,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         
         boolean result = doctorDaoImpl.updateDoctorById(doctor, doctor.getId());
         if (result) {
-            JOptionPane.showMessageDialog(this, "Doctor updated..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_UPDATED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

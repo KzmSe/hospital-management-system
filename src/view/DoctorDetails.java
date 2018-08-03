@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Doctor;
+import util.Constants;
 import view.dialogs.DialogAddDoctor;
 import view.dialogs.DialogUpdateDoctor;
 
@@ -225,7 +226,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         boolean result = doctorDaoImpl.deleteDoctorById(id);
         
         if (result) {
-            JOptionPane.showMessageDialog(this, "Doctor deleted..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_DELETED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

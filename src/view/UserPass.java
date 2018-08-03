@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import model.Doctor;
 import model.Receptionist;
 import model.RootUser;
+import util.Constants;
 
 /**
  *
@@ -259,7 +260,7 @@ public class UserPass extends javax.swing.JFrame {
                 new AdminPortal(currentRootUser).setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Try again..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_INVALID_USERNAME_OR_PASSWORD);
                 jTextFieldUsername.setText("");
                 jPasswordFieldPassword.setText("");
             }
@@ -271,7 +272,7 @@ public class UserPass extends javax.swing.JFrame {
                 new ReceptionistPortal(currentReceptionist).setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Try again..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_INVALID_USERNAME_OR_PASSWORD);
                 jTextFieldUsername.setText("");
                 jPasswordFieldPassword.setText("");
             }
@@ -283,7 +284,7 @@ public class UserPass extends javax.swing.JFrame {
                 new DoctorPortal(currentDoctor).setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Try again..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_INVALID_USERNAME_OR_PASSWORD);
                 jTextFieldUsername.setText("");
                 jPasswordFieldPassword.setText("");
             }

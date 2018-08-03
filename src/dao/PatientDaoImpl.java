@@ -110,7 +110,7 @@ public class PatientDaoImpl implements PatientDao{
         ResultSet rs = null;
         List<Patient> patients = new ArrayList<>();
         Patient patient = null;
-        String sql = "select p.id, p.first_name as patient_first_name, p.last_name, p.age, p.gender, p.address, p.phone_number, p.patient_type, p.ward_no, p.bed_no, p.date, p.image, p.blood_group, r.first_name as receptionist_first_name from patient p inner join receptionist r on p.id_receptionist=r.id;";
+        String sql = "select p.id, p.first_name as patient_first_name, p.last_name, p.age, p.gender, p.address, p.phone_number, p.patient_type, p.ward_no, p.bed_no, p.date, p.image, p.blood_group, r.username as receptionist_username from patient p inner join receptionist r on p.id_receptionist=r.id;";
         
         try {
             con = DbUtil.getConnection();
@@ -133,7 +133,7 @@ public class PatientDaoImpl implements PatientDao{
                 patient.setImage(rs.getString("image"));
                 patient.setBloodGroup(rs.getString("blood_group"));
                 Receptionist receptionist = new Receptionist();
-                receptionist.setFirstName(rs.getString("receptionist_first_name"));
+                receptionist.setUsername(rs.getString("receptionist_username"));
                 patient.setReceptionist(receptionist);
                 
                 patients.add(patient);

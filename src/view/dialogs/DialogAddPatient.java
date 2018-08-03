@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
 import model.Receptionist;
+import util.Constants;
 import view.PatientDetails;
 
 /**
@@ -87,7 +88,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Main information"));
 
@@ -444,7 +445,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         
         boolean result = patientDaoImpl.addPatient(patient);
         if (result) {
-            JOptionPane.showMessageDialog(this, "Patient added..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

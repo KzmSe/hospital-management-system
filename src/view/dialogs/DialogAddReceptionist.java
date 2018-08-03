@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
 import model.Receptionist;
+import util.Constants;
 
 /**
  *
@@ -68,7 +69,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -358,7 +359,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         
         boolean result = receptionistDaoImpl.addReceptionist(receptionist);
         if (result) {
-            JOptionPane.showMessageDialog(this, "Receptionist added..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_ADDED);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

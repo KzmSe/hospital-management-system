@@ -42,12 +42,21 @@ public class AdminPortal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabelPatientDetails = new javax.swing.JLabel();
-        jLabelReceptionistDetails = new javax.swing.JLabel();
-        jLabelDoctorDetails = new javax.swing.JLabel();
-        jLabelIndoorPatients = new javax.swing.JLabel();
-        jLabelAppointments = new javax.swing.JLabel();
-        jLabelOutdoorPatients = new javax.swing.JLabel();
+        jPanelReceptionistDetails = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanelPatientDetails = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanelDoctorDetails = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanelAppointments = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -96,106 +105,195 @@ public class AdminPortal extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabelPatientDetails.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelPatientDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/patient_details_icon.png"))); // NOI18N
-        jLabelPatientDetails.setText("PATIENT DETAILS");
-        jLabelPatientDetails.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelPatientDetails.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelPatientDetails.setMaximumSize(new java.awt.Dimension(161, 152));
-        jLabelPatientDetails.setMinimumSize(new java.awt.Dimension(161, 152));
-        jLabelPatientDetails.setPreferredSize(new java.awt.Dimension(161, 152));
-        jLabelPatientDetails.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabelPatientDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanelReceptionistDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelReceptionistDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelPatientDetailsMousePressed(evt);
+                jPanelReceptionistDetailsMousePressed(evt);
             }
         });
 
-        jLabelReceptionistDetails.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelReceptionistDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receptionist_details_icon.png"))); // NOI18N
-        jLabelReceptionistDetails.setText("RECEPTIONIST DETAILS");
-        jLabelReceptionistDetails.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelReceptionistDetails.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelReceptionistDetails.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabelReceptionistDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receptionist_details_icon.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+
+        jLabel11.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Details");
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel13.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Receptionist");
+        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelReceptionistDetailsLayout = new javax.swing.GroupLayout(jPanelReceptionistDetails);
+        jPanelReceptionistDetails.setLayout(jPanelReceptionistDetailsLayout);
+        jPanelReceptionistDetailsLayout.setHorizontalGroup(
+            jPanelReceptionistDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelReceptionistDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelReceptionistDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelReceptionistDetailsLayout.setVerticalGroup(
+            jPanelReceptionistDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelReceptionistDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanelPatientDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelPatientDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelReceptionistDetailsMousePressed(evt);
+                jPanelPatientDetailsMousePressed(evt);
             }
         });
 
-        jLabelDoctorDetails.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelDoctorDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/doctor_details_icon.png"))); // NOI18N
-        jLabelDoctorDetails.setText("DOCTOR DETAILS");
-        jLabelDoctorDetails.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelDoctorDetails.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelDoctorDetails.setMaximumSize(new java.awt.Dimension(161, 152));
-        jLabelDoctorDetails.setMinimumSize(new java.awt.Dimension(161, 152));
-        jLabelDoctorDetails.setPreferredSize(new java.awt.Dimension(161, 152));
-        jLabelDoctorDetails.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabelDoctorDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/patient_details_icon.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+
+        jLabel8.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Patient");
+        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel9.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Details");
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelPatientDetailsLayout = new javax.swing.GroupLayout(jPanelPatientDetails);
+        jPanelPatientDetails.setLayout(jPanelPatientDetailsLayout);
+        jPanelPatientDetailsLayout.setHorizontalGroup(
+            jPanelPatientDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPatientDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelPatientDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        jPanelPatientDetailsLayout.setVerticalGroup(
+            jPanelPatientDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelPatientDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanelDoctorDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelDoctorDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelDoctorDetailsMousePressed(evt);
+                jPanelDoctorDetailsMousePressed(evt);
             }
         });
 
-        jLabelIndoorPatients.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelIndoorPatients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/indoor_patients_icon.png"))); // NOI18N
-        jLabelIndoorPatients.setText("INDOOR PATIENTS");
-        jLabelIndoorPatients.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelIndoorPatients.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelIndoorPatients.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/doctor_details_icon.png"))); // NOI18N
+        jLabel6.setText("jLabel6");
 
-        jLabelAppointments.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelAppointments.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/appoinments_icon.png"))); // NOI18N
-        jLabelAppointments.setText("APPOINTMENTS");
-        jLabelAppointments.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelAppointments.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelAppointments.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabelAppointments.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel12.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Details");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel14.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Doctor");
+        jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelDoctorDetailsLayout = new javax.swing.GroupLayout(jPanelDoctorDetails);
+        jPanelDoctorDetails.setLayout(jPanelDoctorDetailsLayout);
+        jPanelDoctorDetailsLayout.setHorizontalGroup(
+            jPanelDoctorDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDoctorDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDoctorDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelDoctorDetailsLayout.setVerticalGroup(
+            jPanelDoctorDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelDoctorDetailsLayout.createSequentialGroup()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanelAppointments.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelAppointments.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelAppointmentsMousePressed(evt);
+                jPanelAppointmentsMousePressed(evt);
             }
         });
 
-        jLabelOutdoorPatients.setFont(new java.awt.Font("MV Boli", 1, 12)); // NOI18N
-        jLabelOutdoorPatients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/outdoor_patients_icon.png"))); // NOI18N
-        jLabelOutdoorPatients.setText("OUTDOOR PATIENTS");
-        jLabelOutdoorPatients.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabelOutdoorPatients.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabelOutdoorPatients.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/appoinments_icon.png"))); // NOI18N
+        jLabel7.setText("jLabel7");
+
+        jLabel15.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Appointments");
+        jLabel15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        javax.swing.GroupLayout jPanelAppointmentsLayout = new javax.swing.GroupLayout(jPanelAppointments);
+        jPanelAppointments.setLayout(jPanelAppointmentsLayout);
+        jPanelAppointmentsLayout.setHorizontalGroup(
+            jPanelAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAppointmentsLayout.createSequentialGroup()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelAppointmentsLayout.setVerticalGroup(
+            jPanelAppointmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelAppointments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelPatientDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelReceptionistDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelIndoorPatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelDoctorDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelOutdoorPatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(80, 80, 80))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanelPatientDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelReceptionistDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanelDoctorDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(82, 82, 82))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPatientDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelReceptionistDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDoctorDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelPatientDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelReceptionistDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelIndoorPatients, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelOutdoorPatients, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 50, Short.MAX_VALUE))
+                    .addComponent(jPanelDoctorDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("MV Boli", 1, 26)); // NOI18N
@@ -279,17 +377,11 @@ public class AdminPortal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -300,27 +392,27 @@ public class AdminPortal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
-    private void jLabelPatientDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPatientDetailsMousePressed
+    private void jPanelReceptionistDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReceptionistDetailsMousePressed
+        new ReceptionistDetails().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jPanelReceptionistDetailsMousePressed
+
+    private void jPanelPatientDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPatientDetailsMousePressed
         String backAction = "adminPortal";
         new PatientDetails(false, true, true, backAction, null).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jLabelPatientDetailsMousePressed
+    }//GEN-LAST:event_jPanelPatientDetailsMousePressed
 
-    private void jLabelReceptionistDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelReceptionistDetailsMousePressed
-        new ReceptionistDetails().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jLabelReceptionistDetailsMousePressed
-
-    private void jLabelDoctorDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDoctorDetailsMousePressed
+    private void jPanelDoctorDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelDoctorDetailsMousePressed
         new DoctorDetails().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jLabelDoctorDetailsMousePressed
+    }//GEN-LAST:event_jPanelDoctorDetailsMousePressed
 
-    private void jLabelAppointmentsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAppointmentsMousePressed
+    private void jPanelAppointmentsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMousePressed
         String backAction = "adminPortal";
         new Appointments(false, true, true, backAction).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jLabelAppointmentsMousePressed
+    }//GEN-LAST:event_jPanelAppointmentsMousePressed
 
     /**
      * @param args the command line arguments
@@ -362,19 +454,29 @@ public class AdminPortal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelAppointments;
-    private javax.swing.JLabel jLabelDoctorDetails;
-    private javax.swing.JLabel jLabelIndoorPatients;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLastLoginDate;
-    private javax.swing.JLabel jLabelOutdoorPatients;
-    private javax.swing.JLabel jLabelPatientDetails;
-    private javax.swing.JLabel jLabelReceptionistDetails;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanelAppointments;
+    private javax.swing.JPanel jPanelDoctorDetails;
+    private javax.swing.JPanel jPanelPatientDetails;
+    private javax.swing.JPanel jPanelReceptionistDetails;
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {

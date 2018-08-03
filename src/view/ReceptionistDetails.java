@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
+import util.Constants;
 import view.dialogs.DialogAddReceptionist;
 import view.dialogs.DialogUpdateReceptionist;
 
@@ -232,7 +233,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         
         boolean result = receptionistDaoImpl.deleteReceptionistById(id);
         if (result) {
-            JOptionPane.showMessageDialog(this, "Receptionist deleted..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_DELETED);
         } else {
             JOptionPane.showMessageDialog(this, "Error");
         }
