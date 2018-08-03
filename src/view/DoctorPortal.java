@@ -52,7 +52,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/doctor_icon.png"))); // NOI18N
 

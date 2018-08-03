@@ -24,7 +24,7 @@ import view.dialogs.DialogUpdateDoctor;
 public class DoctorDetails extends javax.swing.JFrame {
 
     private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
-    private DefaultTableModel dtm = new DefaultTableModel();
+    private DefaultTableModel dtm;
     
     public DoctorDetails() {
         initComponents();
@@ -54,6 +54,8 @@ public class DoctorDetails extends javax.swing.JFrame {
         jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jButtonBack.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         jButtonBack.setText("Back");
@@ -316,6 +318,13 @@ public class DoctorDetails extends javax.swing.JFrame {
                 jButtonDelete.setEnabled(true);
             }
         });
+        
+        dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         setTableModel();
     }

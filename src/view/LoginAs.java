@@ -41,7 +41,9 @@ public class LoginAs extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(54, 71, 96));
+
+        jPanel1.setBackground(new java.awt.Color(241, 241, 241));
 
         jLabel1.setBackground(new java.awt.Color(102, 51, 255));
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 24)); // NOI18N
@@ -70,12 +72,15 @@ public class LoginAs extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(241, 241, 241));
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/admin_icon.png"))); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receptionist_icon.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/doctor_icon.png"))); // NOI18N
 
+        jButtonAdmin.setBackground(new java.awt.Color(234, 112, 91));
         jButtonAdmin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonAdmin.setText("Admin");
         jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +89,7 @@ public class LoginAs extends javax.swing.JFrame {
             }
         });
 
+        jButtonReceptionist.setBackground(new java.awt.Color(56, 104, 149));
         jButtonReceptionist.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonReceptionist.setText("Receptionist");
         jButtonReceptionist.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +98,7 @@ public class LoginAs extends javax.swing.JFrame {
             }
         });
 
+        jButtonDoctor.setBackground(new java.awt.Color(254, 199, 7));
         jButtonDoctor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonDoctor.setText("Doctor");
         jButtonDoctor.addActionListener(new java.awt.event.ActionListener() {

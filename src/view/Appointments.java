@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.Receptionist;
 import view.dialogs.DialogAddAppointment;
 
 /**
@@ -18,7 +19,7 @@ import view.dialogs.DialogAddAppointment;
  */
 public class Appointments extends javax.swing.JFrame {
 
-    private DefaultTableModel dtm = new DefaultTableModel();
+    private DefaultTableModel dtm;
     private boolean addAppointmentButton;
     private boolean updateAppointmentButton;
     private boolean deleteAppointmentButton;
@@ -61,7 +62,7 @@ public class Appointments extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jButtonBack.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         jButtonBack.setText("Back");
@@ -328,6 +329,13 @@ public class Appointments extends javax.swing.JFrame {
                 jButtonDelete.setEnabled(true);
             }
         });
+        
+        dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         setTableModel();
         

@@ -55,7 +55,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receptionist_icon.png"))); // NOI18N
 

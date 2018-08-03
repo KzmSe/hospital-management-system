@@ -1,15 +1,15 @@
 CREATE DATABASE  IF NOT EXISTS `clinic` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `clinic`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.11, for Win64 (x86_64)
 --
 -- Host: localhost    Database: clinic
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	8.0.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,7 +23,7 @@ USE `clinic`;
 
 DROP TABLE IF EXISTS `appointment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `appointment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_patient` int(11) DEFAULT NULL,
@@ -52,7 +52,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `doctor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `doctor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
@@ -60,12 +60,13 @@ CREATE TABLE `doctor` (
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   `image` varchar(45) DEFAULT NULL,
-  `rank` varchar(45) DEFAULT NULL,
+  `section` varchar(45) DEFAULT NULL,
   `age` int(11) DEFAULT NULL,
   `gender` varchar(45) DEFAULT NULL,
   `phone_number` varchar(45) DEFAULT NULL,
+  `last_login_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +75,7 @@ CREATE TABLE `doctor` (
 
 LOCK TABLES `doctor` WRITE;
 /*!40000 ALTER TABLE `doctor` DISABLE KEYS */;
+INSERT INTO `doctor` VALUES (1,'shshhsh','hshshsh','doc000','doc000',NULL,'Nephrology',34,'Female','(222) 222-22-22','2018-08-03 10:37:51');
 /*!40000 ALTER TABLE `doctor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +85,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `patient`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `patient` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
@@ -98,8 +100,11 @@ CREATE TABLE `patient` (
   `date` datetime DEFAULT NULL,
   `image` varchar(45) DEFAULT NULL,
   `blood_group` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `id_receptionist` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_patient_receptionist_idx` (`id_receptionist`),
+  CONSTRAINT `fk_patient_receptionist` FOREIGN KEY (`id_receptionist`) REFERENCES `receptionist` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +113,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
-INSERT INTO `patient` VALUES (4,'hshshhs','hshshsh','42','Male','Berde','(888) 888-88-88','Outdoor',1,2,'2018-07-05 00:00:00',NULL,'2+'),(5,'gsgsgsg','gsgsgsg','25','Male','Baku','(666) 666-66-66','Indoor',2,3,'2018-07-13 00:00:00',NULL,'2-');
+INSERT INTO `patient` VALUES (11,'seid','memmedov','13','Male','Baku','(055) 838-38-48','Indoor',1,1,'2018-08-09 00:00:00',NULL,'2+',1),(12,'xasay','memmedov','22','Male','Berde','(051) 222-22-22','Indoor',1,1,'2018-08-09 00:00:00',NULL,'1-',1),(13,'gfgfgfg','hshsh','65','Female','Baku','(737) 737-37-37','Outdoor',1,1,'2018-08-01 00:00:00',NULL,'1-',1),(14,'qutan','butanov','22','Male','Baku','(051) 921-03-30','Outdoor',4,4,'2018-08-16 00:00:00',NULL,'3+',2),(15,'nuredin','memmem','34','Female','Baku','(377) 373-73-73','Indoor',1,1,'2018-08-14 00:00:00',NULL,'1-',1),(16,'hhhhh','hhhhhh','37','Male','Berde','(772) 727-27-72','Outdoor',1,1,'2018-08-08 00:00:00',NULL,'1-',1);
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +123,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `receptionist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `receptionist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) DEFAULT NULL,
@@ -132,7 +137,7 @@ CREATE TABLE `receptionist` (
   `password` varchar(45) DEFAULT NULL,
   `image` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +146,7 @@ CREATE TABLE `receptionist` (
 
 LOCK TABLES `receptionist` WRITE;
 /*!40000 ALTER TABLE `receptionist` DISABLE KEYS */;
+INSERT INTO `receptionist` VALUES (1,'gsgsgsg','ggsgsgs',23,'Female','Baku','(333) 333-33-33','2018-08-03 10:38:24','rec000','rec000',NULL),(2,'jsjsj','jsjsjjs',46,'Male','Baku','(838) 388-38-38','2018-08-02 20:22:59','rec111','rec111',NULL);
 /*!40000 ALTER TABLE `receptionist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +156,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `root_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `root_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
@@ -168,7 +174,7 @@ CREATE TABLE `root_user` (
 
 LOCK TABLES `root_user` WRITE;
 /*!40000 ALTER TABLE `root_user` DISABLE KEYS */;
-INSERT INTO `root_user` VALUES (1,'senan0144','6771','senan','kazimov','2018-07-18 00:00:00');
+INSERT INTO `root_user` VALUES (1,'senan0144','6771','senan','kazimov','2018-08-03 10:34:05');
 /*!40000 ALTER TABLE `root_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -181,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-28 13:27:05
+-- Dump completed on 2018-08-03 10:40:02

@@ -25,7 +25,7 @@ import view.dialogs.DialogUpdatePatient;
 public class PatientDetails extends javax.swing.JFrame {
     
     private PatientDaoImpl patientDaoImpl = new PatientDaoImpl();
-    private DefaultTableModel dtm = new DefaultTableModel();
+    private DefaultTableModel dtm;
     private boolean addPatientButton;
     private boolean updatePatientButton;
     private boolean deletePatientButton;
@@ -71,7 +71,7 @@ public class PatientDetails extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
         jButtonBack.setFont(new java.awt.Font("MV Boli", 0, 14)); // NOI18N
         jButtonBack.setText("Back");
@@ -261,7 +261,7 @@ public class PatientDetails extends javax.swing.JFrame {
             new AdminPortal().setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
-            new ReceptionistPortal(currentReceptionist).setVisible(true);
+            new ReceptionistPortal().setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonBackActionPerformed
@@ -334,6 +334,13 @@ public class PatientDetails extends javax.swing.JFrame {
                 jButtonDelete.setEnabled(true);
             }
         });
+        
+        dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         setTableModel();
         
