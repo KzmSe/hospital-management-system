@@ -5,6 +5,7 @@
  */
 package dao;
 
+import exception.DuplicateUsernameException;
 import java.util.List;
 import model.Receptionist;
 
@@ -18,7 +19,7 @@ public interface ReceptionisDao {
     
     List<Receptionist> getAllReceptionists();
     
-    boolean addReceptionist(Receptionist receptionist);
+    boolean addReceptionist(Receptionist receptionist) throws DuplicateUsernameException;
     
     Receptionist getReceptionistById(int id);
     

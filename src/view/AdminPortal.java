@@ -6,6 +6,7 @@
 package view;
 
 import dao.RootUserDaoImpl;
+import java.awt.Color;
 import model.RootUser;
 
 /**
@@ -150,6 +151,9 @@ public class AdminPortal extends javax.swing.JFrame {
 
         jPanelPatientDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelPatientDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelPatientDetailsMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelPatientDetailsMousePressed(evt);
             }
@@ -414,6 +418,10 @@ public class AdminPortal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jPanelAppointmentsMousePressed
 
+    private void jPanelPatientDetailsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPatientDetailsMouseEntered
+        jPanelPatientDetails.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jPanelPatientDetailsMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -472,7 +480,6 @@ public class AdminPortal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelAppointments;
     private javax.swing.JPanel jPanelDoctorDetails;
     private javax.swing.JPanel jPanelPatientDetails;

@@ -5,10 +5,12 @@
  */
 package dao;
 
+import exception.DuplicateUsernameException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -107,15 +109,27 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
     }
 
     @Override
-    public boolean addReceptionist(Receptionist receptionist) {
+    public boolean addReceptionist(Receptionist receptionist) throws DuplicateUsernameException{
         Connection con = null;
         PreparedStatement ps = null;
+        PreparedStatement psCount = null;
+        int count = 0;
+        ResultSet rs = null;
         boolean result = false;
+        String sqlCount = "select count(*) as username_count from receptionist where username = ?";
         String sql = "insert into receptionist(first_name, last_name, age, gender, address, phone_number, username, password, image) values(?,?,?,?,?,?,?,?,?)";
         
         try {
             con = DbUtil.getConnection();
-            ps = con.prepareStatement(sql);
+            psCount = con.prepareStatement(sqlCount);
+            psCount.setString(1, receptionist.getUsername());
+            rs = psCount.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("username_count");
+            }
+            
+            if (count == 0) {
+              ps = con.prepareStatement(sql);
             ps.setString(1, receptionist.getFirstName());
             ps.setString(2, receptionist.getLastName());
             ps.setInt(3, receptionist.getAge());
@@ -126,14 +140,16 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
             ps.setString(8, receptionist.getPassword());
             ps.setString(9, receptionist.getImage());
             ps.executeUpdate();
-            result = true;
+            result = true;  
+            } else {
+                throw new DuplicateUsernameException();
+            }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            DbUtil.close(con, ps, null);
-            
+            DbUtil.close(con, ps, psCount, rs);
         }
         
         return result;

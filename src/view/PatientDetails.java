@@ -26,7 +26,6 @@ import view.dialogs.DialogUpdatePatient;
 public class PatientDetails extends javax.swing.JFrame {
     
     private PatientDaoImpl patientDaoImpl = new PatientDaoImpl();
-    private DefaultTableModel dtm;
     private boolean addPatientButton;
     private boolean updatePatientButton;
     private boolean deletePatientButton;
@@ -71,6 +70,13 @@ public class PatientDetails extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
@@ -277,6 +283,10 @@ public class PatientDetails extends javax.swing.JFrame {
         tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        setTableModel();
+    }//GEN-LAST:event_formWindowGainedFocus
+
     /**
      * @param args the command line arguments
      */
@@ -336,12 +346,7 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
         
-        dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+        
         
         setTableModel();
         
@@ -359,6 +364,13 @@ public class PatientDetails extends javax.swing.JFrame {
     }
 
     private void setTableModel() {
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -373,20 +385,14 @@ public class PatientDetails extends javax.swing.JFrame {
         dtm.addColumn("Blood Group");
         dtm.addColumn("(Rec) Username");
         
-        refreshTableRows();
-        
-        jTablePatient.setModel(dtm);
-    }
-
-    private void refreshTableRows() {
         List<Patient> patients = patientDaoImpl.getAllPanients();
-        dtm.setRowCount(0);
         
         for (Patient patient : patients) {
             Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(), patient.getReceptionist().getUsername()};
             dtm.addRow(row);
         }
-    }
-    
-    
+        
+        jTablePatient.setModel(dtm);
+        
+    } 
 }

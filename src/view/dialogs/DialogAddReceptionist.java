@@ -6,14 +6,18 @@
 package view.dialogs;
 
 import dao.ReceptionistDaoImpl;
+import exception.DuplicateUsernameException;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
 import model.Receptionist;
 import util.Constants;
+import util.Validate;
 
 /**
  *
@@ -357,12 +361,25 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         receptionist.setPassword(password);
         receptionist.setImage(image);
         
-        boolean result = receptionistDaoImpl.addReceptionist(receptionist);
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, address, username, password, gender);
+        
+        
         if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_ADDED);
+            try {
+                if (receptionistDaoImpl.addReceptionist(receptionist)) {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_ADDED);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error..");
+                }
+                
+            } catch (DuplicateUsernameException e) {
+                JOptionPane.showMessageDialog(this, "Duplicated username..");
+            }
+            
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
+        
     }//GEN-LAST:event_jButtonAddReceptionistActionPerformed
 
     /**

@@ -25,23 +25,18 @@ public class DbUtil {
         return connection;
     }
     
-   public static void close(Connection con, PreparedStatement ps, ResultSet rs){
-        try {
-            if (con!=null){
-                con.close();
+   public static void close(AutoCloseable... acs){
+        for (AutoCloseable ac : acs) {
+            if (ac != null) {
+                try {
+                    ac.close();
+         
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
-
-            if (ps!=null){
-                ps.close();
-            }
-
-            if (rs!=null){
-                rs.close();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
         }
-
     }
     
+   
 }
