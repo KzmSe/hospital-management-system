@@ -61,6 +61,13 @@ public class Appointments extends javax.swing.JFrame {
         jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
@@ -268,8 +275,12 @@ public class Appointments extends javax.swing.JFrame {
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
         jTableAppointment.setRowSorter(tableRowSorter);
-        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+        tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldSearch.getText()));
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        setTableModel();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -330,13 +341,6 @@ public class Appointments extends javax.swing.JFrame {
             }
         });
         
-        dtm = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
         setTableModel();
         
         if (!addAppointmentButton) {
@@ -353,6 +357,12 @@ public class Appointments extends javax.swing.JFrame {
     }
 
     private void setTableModel() {
+        dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         
         dtm.addColumn("ID");
         dtm.addColumn("Doctor Id");
@@ -361,12 +371,10 @@ public class Appointments extends javax.swing.JFrame {
         dtm.addColumn("Patient Fullname");
         dtm.addColumn("Date");
         
-        refreshTableRows();
+        //get appointments
+        //refresh table rows
         
         jTableAppointment.setModel(dtm);
     }
 
-    private void refreshTableRows() {
-        
-    }
 }

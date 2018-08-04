@@ -56,6 +56,13 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
@@ -255,8 +262,12 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
         jTableReceptionist.setRowSorter(tableRowSorter);
-        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+        tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldSearch.getText()));
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        setTableModel();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -317,6 +328,10 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         });
         
+        setTableModel();
+    }
+
+    private void setTableModel() {
         dtm = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -324,10 +339,6 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         };
         
-        setTableModel();
-    }
-
-    private void setTableModel() {
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -339,17 +350,14 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         dtm.addColumn("Username");
         dtm.addColumn("Password");
         
-        refreshTableRows();
-        
-        jTableReceptionist.setModel(dtm);
-    }
-
-    private void refreshTableRows() {
         List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
         
         for (Receptionist receptionist : receptionists) {
             Object[] row = {receptionist.getId(), receptionist.getFirstName(), receptionist.getLastName(), receptionist.getAge(), receptionist.getGender(), receptionist.getAddress(), receptionist.getPhoneNumber(), receptionist.getLastLoginDate(), receptionist.getUsername(), receptionist.getPassword()};
             dtm.addRow(row);
         }
+        
+        jTableReceptionist.setModel(dtm);
     }
+
 }

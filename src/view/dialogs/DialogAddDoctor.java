@@ -7,12 +7,14 @@ package view.dialogs;
 
 
 import dao.DoctorDaoImpl;
+import exception.DuplicateUsernameException;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Doctor;
 import util.Constants;
+import util.Validate;
 
 /**
  *
@@ -326,7 +328,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     private void jButtonAddDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddDoctorActionPerformed
         String firstname = jTextFieldFirstName.getText();
         String lastname = jTextFieldLastName.getText();
-        int age = Integer.parseInt(jTextFieldAge.getText());
+        int age = jTextFieldAge.getText().equals("") ? 0 : Integer.parseInt(jTextFieldAge.getText());
         String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
         String section = jComboBoxRank.getSelectedItem().toString();
         String username = jTextFieldUsername.getText();
@@ -354,11 +356,23 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         doctor.setPassword(password);
         doctor.setImage(image);
         
-        boolean result = doctorDaoImpl.addDoctor(doctor);
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), username, password, phoneNumber);
+        
         if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_ADDED);
+            try {
+                if (doctorDaoImpl.addDoctor(doctor)) {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_ADDED);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error..");
+                }
+                
+            } catch (DuplicateUsernameException e) {
+                JOptionPane.showMessageDialog(this, "Duplicated username..");
+            }
+            
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonAddDoctorActionPerformed
 

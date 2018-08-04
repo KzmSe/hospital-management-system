@@ -108,6 +108,12 @@ public class AdminPortal extends javax.swing.JFrame {
 
         jPanelReceptionistDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelReceptionistDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelReceptionistDetailsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelReceptionistDetailsMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelReceptionistDetailsMousePressed(evt);
             }
@@ -154,6 +160,9 @@ public class AdminPortal extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanelPatientDetailsMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelPatientDetailsMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelPatientDetailsMousePressed(evt);
             }
@@ -197,6 +206,12 @@ public class AdminPortal extends javax.swing.JFrame {
 
         jPanelDoctorDetails.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelDoctorDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelDoctorDetailsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelDoctorDetailsMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelDoctorDetailsMousePressed(evt);
             }
@@ -240,6 +255,12 @@ public class AdminPortal extends javax.swing.JFrame {
 
         jPanelAppointments.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelAppointments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelAppointmentsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelAppointmentsMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelAppointmentsMousePressed(evt);
             }
@@ -275,15 +296,13 @@ public class AdminPortal extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(102, 102, 102)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanelPatientDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelReceptionistDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanelDoctorDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelPatientDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelDoctorDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelReceptionistDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelAppointments, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(82, 82, 82))
         );
         jPanel3Layout.setVerticalGroup(
@@ -421,6 +440,34 @@ public class AdminPortal extends javax.swing.JFrame {
     private void jPanelPatientDetailsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPatientDetailsMouseEntered
         jPanelPatientDetails.setBackground(Color.WHITE);
     }//GEN-LAST:event_jPanelPatientDetailsMouseEntered
+
+    private void jPanelPatientDetailsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPatientDetailsMouseExited
+        jPanelPatientDetails.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_jPanelPatientDetailsMouseExited
+
+    private void jPanelReceptionistDetailsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReceptionistDetailsMouseEntered
+        jPanelReceptionistDetails.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jPanelReceptionistDetailsMouseEntered
+
+    private void jPanelReceptionistDetailsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReceptionistDetailsMouseExited
+        jPanelReceptionistDetails.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_jPanelReceptionistDetailsMouseExited
+
+    private void jPanelDoctorDetailsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelDoctorDetailsMouseEntered
+        jPanelDoctorDetails.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jPanelDoctorDetailsMouseEntered
+
+    private void jPanelDoctorDetailsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelDoctorDetailsMouseExited
+        jPanelDoctorDetails.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_jPanelDoctorDetailsMouseExited
+
+    private void jPanelAppointmentsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMouseEntered
+        jPanelAppointments.setBackground(Color.WHITE);
+    }//GEN-LAST:event_jPanelAppointmentsMouseEntered
+
+    private void jPanelAppointmentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMouseExited
+        jPanelAppointments.setBackground(new Color(240,240,240));
+    }//GEN-LAST:event_jPanelAppointmentsMouseExited
 
     /**
      * @param args the command line arguments

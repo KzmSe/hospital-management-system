@@ -55,6 +55,13 @@ public class DoctorDetails extends javax.swing.JFrame {
         jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
@@ -258,8 +265,12 @@ public class DoctorDetails extends javax.swing.JFrame {
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
         jTableDoctor.setRowSorter(tableRowSorter);
-        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+        tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldSearch.getText()));
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        setTableModel();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -320,6 +331,10 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         });
         
+        setTableModel();
+    }
+
+    private void setTableModel() {
         dtm = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -327,10 +342,6 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         };
         
-        setTableModel();
-    }
-
-    private void setTableModel() {
         dtm.addColumn("ID");
         dtm.addColumn("First Name");
         dtm.addColumn("Last Name");
@@ -343,17 +354,14 @@ public class DoctorDetails extends javax.swing.JFrame {
         dtm.addColumn("Username");
         dtm.addColumn("Password");
         
-        refreshTableRows();
-        
-        jTableDoctor.setModel(dtm);
-    }
-
-    private void refreshTableRows() {
         List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
         
         for (Doctor doctor : doctors) {
             Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getSection(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
             dtm.addRow(row);
         }
+        
+        jTableDoctor.setModel(dtm);
     }
+
 }

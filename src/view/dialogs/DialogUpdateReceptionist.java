@@ -362,6 +362,7 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
         boolean result = receptionistDaoImpl.updateReceptionistById(receptionist, receptionist.getId());
         if (result) {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_UPDATED);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

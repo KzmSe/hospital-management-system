@@ -5,6 +5,7 @@
  */
 package dao;
 
+import exception.DuplicateUsernameException;
 import java.util.List;
 import model.Doctor;
 
@@ -22,7 +23,7 @@ public interface DoctorDao {
     
     boolean deleteDoctorById(int id);
     
-    boolean addDoctor(Doctor doctor);
+    boolean addDoctor(Doctor doctor) throws DuplicateUsernameException;
     
     boolean updateDoctorById(Doctor doctor, int id);
     

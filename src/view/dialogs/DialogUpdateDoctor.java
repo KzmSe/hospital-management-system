@@ -362,6 +362,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         boolean result = doctorDaoImpl.updateDoctorById(doctor, doctor.getId());
         if (result) {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_UPDATED);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

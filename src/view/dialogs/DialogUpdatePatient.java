@@ -448,6 +448,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         boolean result = patientDaoImpl.updatePatientById(patient, patient.getId());
         if (result) {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_UPDATED);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Error..");
         }

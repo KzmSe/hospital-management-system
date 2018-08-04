@@ -333,7 +333,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
     private void jButtonAddReceptionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddReceptionistActionPerformed
         String firstname = jTextFieldFirstName.getText();
         String lastname = jTextFieldLastName.getText();
-        int age = Integer.parseInt(jTextFieldAge.getText());
+        int age = jTextFieldAge.getText().equals("") ? 0 : Integer.parseInt(jTextFieldAge.getText());
         String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
         String address = jComboBoxAddress.getSelectedItem().toString();
         String username = jTextFieldUsername.getText();
@@ -361,13 +361,14 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         receptionist.setPassword(password);
         receptionist.setImage(image);
         
-        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, address, username, password, gender);
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, username, password);
         
         
         if (result) {
             try {
                 if (receptionistDaoImpl.addReceptionist(receptionist)) {
                     JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_ADDED);
+                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error..");
                 }

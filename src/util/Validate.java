@@ -20,7 +20,7 @@ public class Validate {
         boolean result = true;
         
         for (String str : fields) {
-            if (str == null || str.isEmpty()) {
+            if (str == null || str.isEmpty() || str.equals("0")) {
                 result = false;
             }
         }

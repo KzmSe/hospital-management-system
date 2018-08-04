@@ -5,9 +5,11 @@
  */
 package dao;
 
+import exception.DuplicateUsernameException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,32 +172,47 @@ public class DoctorDaoImpl implements DoctorDao{
     }
 
     @Override
-    public boolean addDoctor(Doctor doctor) {
+    public boolean addDoctor(Doctor doctor) throws DuplicateUsernameException{
         Connection con = null;
         PreparedStatement ps = null;
+        PreparedStatement psCount = null;
+        int count = 0;
+        ResultSet rs = null;
         boolean result = false;
+        String sqlCount = "select count(*) as username_count from doctor where username = ?";
         String sql = "insert into doctor(first_name, last_name, username, password, image, section, age, gender, phone_number) values(?,?,?,?,?,?,?,?,?)";
         
         try {
             con = DbUtil.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, doctor.getFirstName());
-            ps.setString(2, doctor.getLastName());
-            ps.setString(3, doctor.getUsername());
-            ps.setString(4, doctor.getPassword());
-            ps.setString(5, doctor.getImage());
-            ps.setString(6, doctor.getSection());
-            ps.setInt(7, doctor.getAge());
-            ps.setString(8, doctor.getGender());
-            ps.setString(9, doctor.getPhoneNumber());
-            ps.executeUpdate();
-            result = true; 
+            psCount = con.prepareStatement(sqlCount);
+            psCount.setString(1, doctor.getUsername());
+            rs = psCount.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("username_count");
+            }
             
-        } catch (Exception e) {
+            if (count == 0) {
+                ps.setString(1, doctor.getFirstName());
+                ps.setString(2, doctor.getLastName());
+                ps.setString(3, doctor.getUsername());
+                ps.setString(4, doctor.getPassword());
+                ps.setString(5, doctor.getImage());
+                ps.setString(6, doctor.getSection());
+                ps.setInt(7, doctor.getAge());
+                ps.setString(8, doctor.getGender());
+                ps.setString(9, doctor.getPhoneNumber());
+                ps.executeUpdate();
+                result = true; 
+            } else {
+                throw new DuplicateUsernameException();
+            }
+            
+        } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            DbUtil.close(con, ps, null);
+            DbUtil.close(con, ps, psCount, rs);
             
         }
         

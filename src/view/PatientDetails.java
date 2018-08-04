@@ -26,6 +26,7 @@ import view.dialogs.DialogUpdatePatient;
 public class PatientDetails extends javax.swing.JFrame {
     
     private PatientDaoImpl patientDaoImpl = new PatientDaoImpl();
+    private DefaultTableModel dtm;
     private boolean addPatientButton;
     private boolean updatePatientButton;
     private boolean deletePatientButton;
@@ -280,7 +281,7 @@ public class PatientDetails extends javax.swing.JFrame {
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(dtm);
         jTablePatient.setRowSorter(tableRowSorter);
-        tableRowSorter.setRowFilter(RowFilter.regexFilter(jTextFieldSearch.getText()));
+        tableRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldSearch.getText()));
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -364,7 +365,7 @@ public class PatientDetails extends javax.swing.JFrame {
     }
 
     private void setTableModel() {
-        DefaultTableModel dtm = new DefaultTableModel(){
+        dtm = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;

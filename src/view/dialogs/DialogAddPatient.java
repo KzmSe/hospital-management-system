@@ -7,6 +7,7 @@ package view.dialogs;
 
 
 import dao.PatientDaoImpl;
+import exception.DuplicateUsernameException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,6 +18,7 @@ import javax.swing.JRadioButton;
 import model.Patient;
 import model.Receptionist;
 import util.Constants;
+import util.Validate;
 import view.PatientDetails;
 
 /**
@@ -401,7 +403,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
     private void jButtonAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddPatientActionPerformed
         String firstname = jTextFieldFirstName.getText();
         String lastname = jTextFieldLastName.getText();
-        int age = Integer.parseInt(jTextFieldAge.getText());
+        int age = jTextFieldAge.getText().equals("") ? 0 : Integer.parseInt(jTextFieldAge.getText());
         String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
         String address = jComboBoxAddress.getSelectedItem().toString();
         String bloodGroup = jComboBoxBloodGroup.getSelectedItem().toString();
@@ -443,11 +445,18 @@ public class DialogAddPatient extends javax.swing.JDialog {
         patient.setImage(image);
         patient.setReceptionist(currentReceptionist);
         
-        boolean result = patientDaoImpl.addPatient(patient);
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, joiningDate.toString());
+
+        
         if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
+            if (patientDaoImpl.addPatient(patient)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error..");
+            } 
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
         
     }//GEN-LAST:event_jButtonAddPatientActionPerformed

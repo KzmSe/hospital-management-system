@@ -129,18 +129,18 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
             }
             
             if (count == 0) {
-              ps = con.prepareStatement(sql);
-            ps.setString(1, receptionist.getFirstName());
-            ps.setString(2, receptionist.getLastName());
-            ps.setInt(3, receptionist.getAge());
-            ps.setString(4, receptionist.getGender());
-            ps.setString(5, receptionist.getAddress());
-            ps.setString(6, receptionist.getPhoneNumber());
-            ps.setString(7, receptionist.getUsername());
-            ps.setString(8, receptionist.getPassword());
-            ps.setString(9, receptionist.getImage());
-            ps.executeUpdate();
-            result = true;  
+                ps = con.prepareStatement(sql);
+                ps.setString(1, receptionist.getFirstName());
+                ps.setString(2, receptionist.getLastName());
+                ps.setInt(3, receptionist.getAge());
+                ps.setString(4, receptionist.getGender());
+                ps.setString(5, receptionist.getAddress());
+                ps.setString(6, receptionist.getPhoneNumber());
+                ps.setString(7, receptionist.getUsername());
+                ps.setString(8, receptionist.getPassword());
+                ps.setString(9, receptionist.getImage());
+                ps.executeUpdate();
+                result = true;  
             } else {
                 throw new DuplicateUsernameException();
             }
