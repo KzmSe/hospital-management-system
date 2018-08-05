@@ -384,12 +384,13 @@ public class PatientDetails extends javax.swing.JFrame {
         dtm.addColumn("Bed №");
         dtm.addColumn("Date");
         dtm.addColumn("Blood Group");
+        dtm.addColumn("Pin");
         dtm.addColumn("(Rec) Username");
         
         List<Patient> patients = patientDaoImpl.getAllPanients();
         
         for (Patient patient : patients) {
-            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(), patient.getReceptionist().getUsername()};
+            Object[] row = {patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getAge(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber(), patient.getPatientType(), patient.getWardNo(), patient.getBedNo(), patient.getDate(), patient.getBloodGroup(),patient.getPin(), patient.getReceptionist().getUsername()};
             dtm.addRow(row);
         }
         

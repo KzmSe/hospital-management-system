@@ -7,6 +7,7 @@ package view.dialogs;
 
 
 import dao.PatientDaoImpl;
+import exception.DuplicatePinException;
 import exception.DuplicateUsernameException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,6 +69,8 @@ public class DialogAddPatient extends javax.swing.JDialog {
         jComboBoxAddress = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jComboBoxBloodGroup = new javax.swing.JComboBox<>();
+        jTextFieldPin = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxBedNumber = new javax.swing.JComboBox<>();
@@ -154,6 +157,8 @@ public class DialogAddPatient extends javax.swing.JDialog {
 
         jComboBoxBloodGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-", "1+", "2-", "2+", "3-", "3+", "4-", "4+" }));
 
+        jLabel10.setText("Pin:");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -163,12 +168,14 @@ public class DialogAddPatient extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextFieldPhoneNumber)
-                    .addComponent(jComboBoxAddress, 0, 194, Short.MAX_VALUE)
+                    .addComponent(jComboBoxAddress, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxBloodGroup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -187,7 +194,11 @@ public class DialogAddPatient extends javax.swing.JDialog {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxBloodGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Other information"));
@@ -331,23 +342,26 @@ public class DialogAddPatient extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSelectImage)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSelectImage)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAddPatient))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAddPatient, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(34, 34, 34))
         );
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
@@ -410,6 +424,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         Date joiningDate = jDateChooserJoiningDate.getDate();
         int wardNumber = Integer.parseInt((String)jComboBoxWardNumber.getSelectedItem());
         int bedNumber = Integer.parseInt((String)jComboBoxBedNumber.getSelectedItem());
+        String pin = jTextFieldPin.getText();
         String gender = null;
         String patientType = null;
         String image = null;
@@ -443,18 +458,25 @@ public class DialogAddPatient extends javax.swing.JDialog {
         patient.setGender(gender);
         patient.setPatientType(patientType);
         patient.setImage(image);
+        patient.setPin(pin);
         patient.setReceptionist(currentReceptionist);
         
-        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, joiningDate.toString());
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, joiningDate.toString(), pin);
 
         
         if (result) {
-            if (patientDaoImpl.addPatient(patient)) {
-                JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "Error..");
-            } 
+            try {
+                if (patientDaoImpl.addPatient(patient)) {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error..");
+                }
+                
+            } catch (DuplicatePinException e) {
+                JOptionPane.showMessageDialog(this, "Duplicated pin..");
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
@@ -515,6 +537,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDateChooserJoiningDate;
     private javax.swing.JFormattedTextField jFormattedTextFieldPhoneNumber;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -540,6 +563,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldAge;
     private javax.swing.JTextField jTextFieldFirstName;
     private javax.swing.JTextField jTextFieldLastName;
+    private javax.swing.JTextField jTextFieldPin;
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
@@ -547,8 +571,10 @@ public class DialogAddPatient extends javax.swing.JDialog {
         
         buttonGroupGender.add(jRadioButtonMale);
         buttonGroupGender.add(jRadioButtonFemale);
+        jRadioButtonMale.setSelected(true);
         
         buttonGroupPatientType.add(jRadioButtonIndoor);
         buttonGroupPatientType.add(jRadioButtonOutdoor);
+        jRadioButtonIndoor.setSelected(true);
     }
 }

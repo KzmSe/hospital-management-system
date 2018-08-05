@@ -454,5 +454,6 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         
         buttonGroupGender.add(jRadioButtonMale);
         buttonGroupGender.add(jRadioButtonFemale);
+        jRadioButtonMale.setSelected(true);
     }
 }

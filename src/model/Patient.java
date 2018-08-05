@@ -22,6 +22,7 @@ public class Patient {
     private Date date;
     private String image;
     private String bloodGroup;
+    private String pin;
     private Receptionist receptionist;
     private List<Appointment> appointments;
 
@@ -29,7 +30,7 @@ public class Patient {
         appointments = new ArrayList<>();
     }
 
-    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, Date date, String image, String bloodGroup, Receptionist receptionist, List<Appointment> appointments) {
+    public Patient(int id, String firstName, String lastName, int age, String gender, String address, String phoneNumber, String patientType, int wardNo, int bedNo, Date date, String image, String bloodGroup, String pin, Receptionist receptionist, List<Appointment> appointments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,6 +44,7 @@ public class Patient {
         this.date = date;
         this.image = image;
         this.bloodGroup = bloodGroup;
+        this.pin = pin;
         this.receptionist = receptionist;
         this.appointments = appointments;
         appointments = new ArrayList<>();
@@ -168,9 +170,17 @@ public class Patient {
         this.appointments = appointments;
     }
 
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
     @Override
     public String toString() {
-        return "Patient{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", address=" + address + ", phoneNumber=" + phoneNumber + ", patientType=" + patientType + ", wardNo=" + wardNo + ", bedNo=" + bedNo + ", date=" + date + ", image=" + image + ", bloodGroup=" + bloodGroup + ", receptionist=" + receptionist + ", appointments=" + appointments + '}';
+        return "Patient{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender + ", address=" + address + ", phoneNumber=" + phoneNumber + ", patientType=" + patientType + ", wardNo=" + wardNo + ", bedNo=" + bedNo + ", date=" + date + ", image=" + image + ", bloodGroup=" + bloodGroup + ", pin=" + pin + ", receptionist=" + receptionist + ", appointments=" + appointments + '}';
     }
 
 }

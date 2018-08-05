@@ -5,10 +5,12 @@
  */
 package dao;
 
+import exception.DuplicatePinException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Patient;
@@ -52,6 +54,7 @@ public class PatientDaoImpl implements PatientDao{
                 patient.setDate(rs.getDate("date"));
                 patient.setImage(rs.getString("image"));
                 patient.setBloodGroup(rs.getString("blood_group"));
+                patient.setPin(rs.getString("pin"));
             }
             
         } catch (Exception e) {
@@ -66,37 +69,53 @@ public class PatientDaoImpl implements PatientDao{
     }
 
     @Override
-    public boolean addPatient(Patient patient) {
+    public boolean addPatient(Patient patient) throws DuplicatePinException{
         Connection con = null;
         PreparedStatement ps = null;
+        PreparedStatement psCount = null;
+        int count = 0;
+        ResultSet rs = null;
         boolean result = false;
-        String sql = "insert into patient(first_name, last_name, age, gender, address, phone_number, patient_type, ward_no, bed_no, date, image, blood_group, id_receptionist)"
-                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sqlCount = "select count(*) as pin_count from patient where pin = ?";
+        String sql = "insert into patient(first_name, last_name, age, gender, address, phone_number, patient_type, ward_no, bed_no, date, image, blood_group, id_receptionist, pin)"
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             con = DbUtil.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, patient.getFirstName());
-            ps.setString(2, patient.getLastName());
-            ps.setInt(3, patient.getAge());
-            ps.setString(4, patient.getGender());
-            ps.setString(5, patient.getAddress());
-            ps.setString(6, patient.getPhoneNumber());
-            ps.setString(7, patient.getPatientType());
-            ps.setInt(8, patient.getWardNo());
-            ps.setInt(9, patient.getBedNo());
-            ps.setDate(10, new Date(patient.getDate().getTime()));
-            ps.setString(11, patient.getImage());
-            ps.setString(12, patient.getBloodGroup());
-            ps.setInt(13, patient.getReceptionist().getId());
-            ps.executeUpdate();
-            result = true;
+            psCount = con.prepareStatement(sqlCount);
+            psCount.setString(1, patient.getPin());
+            rs = psCount.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("pin_count");
+            }
             
-        } catch (Exception e) {
+            if (count == 0) {
+                ps.setString(1, patient.getFirstName());
+                ps.setString(2, patient.getLastName());
+                ps.setInt(3, patient.getAge());
+                ps.setString(4, patient.getGender());
+                ps.setString(5, patient.getAddress());
+                ps.setString(6, patient.getPhoneNumber());
+                ps.setString(7, patient.getPatientType());
+                ps.setInt(8, patient.getWardNo());
+                ps.setInt(9, patient.getBedNo());
+                ps.setDate(10, new Date(patient.getDate().getTime()));
+                ps.setString(11, patient.getImage());
+                ps.setString(12, patient.getBloodGroup());
+                ps.setInt(13, patient.getReceptionist().getId());
+                ps.setString(14, patient.getPin());
+                ps.executeUpdate();
+                result = true;
+            } else {
+                throw new DuplicatePinException();
+            }
+            
+        } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            DbUtil.close(con, ps, null);
+            DbUtil.close(con, ps, psCount, rs);
             
         }
         
@@ -110,7 +129,7 @@ public class PatientDaoImpl implements PatientDao{
         ResultSet rs = null;
         List<Patient> patients = new ArrayList<>();
         Patient patient = null;
-        String sql = "select p.id, p.first_name as patient_first_name, p.last_name, p.age, p.gender, p.address, p.phone_number, p.patient_type, p.ward_no, p.bed_no, p.date, p.image, p.blood_group, r.username as receptionist_username from patient p inner join receptionist r on p.id_receptionist=r.id;";
+        String sql = "select p.id, p.first_name as patient_first_name, p.last_name, p.age, p.gender, p.address, p.phone_number, p.patient_type, p.ward_no, p.bed_no, p.date, p.image, p.blood_group, p.pin, r.username as receptionist_username from patient p inner join receptionist r on p.id_receptionist=r.id;";
         
         try {
             con = DbUtil.getConnection();
@@ -132,6 +151,7 @@ public class PatientDaoImpl implements PatientDao{
                 patient.setDate(rs.getDate("date"));
                 patient.setImage(rs.getString("image"));
                 patient.setBloodGroup(rs.getString("blood_group"));
+                patient.setPin(rs.getString("pin"));
                 Receptionist receptionist = new Receptionist();
                 receptionist.setUsername(rs.getString("receptionist_username"));
                 patient.setReceptionist(receptionist);
@@ -179,6 +199,7 @@ public class PatientDaoImpl implements PatientDao{
                 patient.setDate(rs.getDate("date"));
                 patient.setImage(rs.getString("image"));
                 patient.setBloodGroup(rs.getString("blood_group"));
+                patient.setPin(rs.getString("pin"));
             }
             
         } catch (Exception e) {
@@ -197,7 +218,7 @@ public class PatientDaoImpl implements PatientDao{
         PreparedStatement ps = null;
         boolean result = false;
         String sql = "update patient set first_name = ?, last_name = ?, age = ?, gender = ?, address = ?, phone_number = ?, patient_type = ?,"
-                + "ward_no = ?, bed_no = ?, date = ?, image = ?, blood_group = ? where id = ?";
+                + "ward_no = ?, bed_no = ?, date = ?, image = ?, blood_group = ?, pin = ? where id = ?";
         
         try {
             con = DbUtil.getConnection();
@@ -214,7 +235,8 @@ public class PatientDaoImpl implements PatientDao{
             ps.setDate(10, new Date(patient.getDate().getTime()));
             ps.setString(11, patient.getImage());
             ps.setString(12, patient.getBloodGroup());
-            ps.setInt(13, id);
+            ps.setString(13, patient.getPin());
+            ps.setInt(14, id);
             ps.executeUpdate();
             result = true;
             

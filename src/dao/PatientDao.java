@@ -5,6 +5,7 @@
  */
 package dao;
 
+import exception.DuplicatePinException;
 import java.util.List;
 import model.Patient;
 
@@ -16,7 +17,7 @@ public interface PatientDao {
     
     Patient getPatient(String username, String password);
     
-    boolean addPatient(Patient patient);
+    boolean addPatient(Patient patient) throws DuplicatePinException;
     
     List<Patient> getAllPanients();
     
