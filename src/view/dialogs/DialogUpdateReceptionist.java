@@ -364,7 +364,7 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_UPDATED);
             this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
         }
     }//GEN-LAST:event_jButtonUpdateReceptionistActionPerformed
 

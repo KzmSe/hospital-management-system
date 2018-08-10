@@ -5,15 +5,36 @@
  */
 package view.dialogs;
 
+import dao.AppointmentDaoImpl;
+import dao.DepartmentDaoImpl;
+import dao.DoctorDaoImpl;
 import dao.PatientDaoImpl;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import model.Department;
+import model.Doctor;
+import model.Patient;
+import util.Constants;
+import util.Validate;
 
 /**
  *
  * @author Lenovo
  */
-public class DialogAddAppointment extends javax.swing.JDialog {
+public class DialogAddAppointment extends javax.swing.JDialog implements ItemListener{
 
     private PatientDaoImpl patientDaoImpl = new PatientDaoImpl();
+    private DepartmentDaoImpl departmentDaoImpl = new DepartmentDaoImpl();
+    private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
+    private AppointmentDaoImpl appointmentDaoImpl = new AppointmentDaoImpl();
+    private Map<String, Integer> map = new HashMap<>();
     
     public DialogAddAppointment(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,80 +54,40 @@ public class DialogAddAppointment extends javax.swing.JDialog {
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBoxPatient = new javax.swing.JComboBox<>();
+        jComboBoxDepartment = new javax.swing.JComboBox<>();
+        jComboBoxDoctor = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButtonAddAppointment = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel24 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel18.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel18.setBackground(new java.awt.Color(54, 71, 96));
 
         jPanel20.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel23.setText("Select Patient");
+        jComboBoxPatient.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
 
-        jLabel24.setText("Select Doctor");
+        jComboBoxDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
+        jComboBoxDepartment.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDepartmentItemStateChanged(evt);
+            }
+        });
 
-        jLabel25.setText("Date and Time:");
+        jComboBoxDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none" }));
 
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+        jLabel2.setText("Select Patient");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel3.setText("Select Department");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox3, 0, 150, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel25))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel24)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        jLabel4.setText("Select Doctor");
 
         jButtonAddAppointment.setText("Add Appointment");
         jButtonAddAppointment.addActionListener(new java.awt.event.ActionListener() {
@@ -115,26 +96,68 @@ public class DialogAddAppointment extends javax.swing.JDialog {
             }
         });
 
+        jLabel5.setText("Date and Time");
+
+        jDateChooser1.setDateFormatString("MMM d, yyyy HH:mm:ss");
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAddAppointment)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxPatient, 0, 200, Short.MAX_VALUE)
+                            .addComponent(jComboBoxDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(302, 302, 302))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jButtonAddAppointment)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonAddAppointment)))
-                .addContainerGap(320, Short.MAX_VALUE))
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAddAppointment)
-                .addContainerGap())
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
@@ -145,7 +168,9 @@ public class DialogAddAppointment extends javax.swing.JDialog {
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,26 +195,49 @@ public class DialogAddAppointment extends javax.swing.JDialog {
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(79, 79, 79))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddAppointmentActionPerformed
+        String patient = jComboBoxPatient.getSelectedItem().toString();
+        String doctor = jComboBoxDoctor.getSelectedItem().toString();
+        String department = jComboBoxDepartment.getSelectedItem().toString();
+        Date dateAndTime = jDateChooser1.getDate();
         
+        boolean result = Validate.validateEmptyFields(patient, doctor, department);
+        
+        if (result) {
+            int idPatient = Integer.parseInt(getIdFromFullnameAndPin(patient));
+            int idDoctor = Integer.parseInt(getIdFromFullnameAndPin(doctor));
+            
+            if (appointmentDaoImpl.addAppointment(idPatient, idDoctor, dateAndTime)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_APPOINTMENT_ADDED);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
+        }
     }//GEN-LAST:event_jButtonAddAppointmentActionPerformed
+
+    private void jComboBoxDepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDepartmentItemStateChanged
+        
+    }//GEN-LAST:event_jComboBoxDepartmentItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -235,21 +283,79 @@ public class DialogAddAppointment extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddAppointment;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxDepartment;
+    private javax.swing.JComboBox<String> jComboBoxDoctor;
+    private javax.swing.JComboBox<String> jComboBoxPatient;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel24;
-    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
+        map.put("accident and emergency", 1);
+        map.put("anaesthetics", 2);
+        map.put("cardiology", 3);
+        map.put("oncology", 4);
+        map.put("diagnostic imaging", 5);
+        map.put("ear nose and throat", 6);
+        map.put("gastroenterology", 7);
+        map.put("general surgery", 8);
+        map.put("nutrition and dietetics", 9);
+        map.put("neurology", 10);
+        map.put("rheumatology", 11);
+        
+        setPatient();
+        setDepartment();
+        
+        jComboBoxDepartment.addItemListener(this);
+    }
+
+    private void setPatient() {
+        List<Patient> patients = patientDaoImpl.getAllPanients();
+        
+        for (Patient patient : patients) {
+            String fullnameAndPin =patient.getId() + " - " + patient.getFirstName() + " " + patient.getLastName() + " " + "(" + patient.getPin() + ")";
+            
+            jComboBoxPatient.addItem(fullnameAndPin);
+        }
+    }
+
+    private void setDepartment() {
+        List<Department> departments = departmentDaoImpl.getAllDepartments();
+        
+        for (Department department : departments) {
+            jComboBoxDepartment.addItem(department.getDepartment_name());
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent ie) {
+        if (ie.getStateChange() == ItemEvent.SELECTED) {
+            String selectedDepartment = jComboBoxDepartment.getSelectedItem().toString();
+            int id_department = map.get(selectedDepartment);
+        
+            List<Doctor> doctors = doctorDaoImpl.getDoctorsByDepartment(id_department);
+            jComboBoxDoctor.removeAllItems();
+            for (Doctor doctor : doctors) {
+                String fullnameAndPin =doctor.getId() + " - " + doctor.getFirstName() + " " + doctor.getLastName() + " " + "(" + doctor.getPin() + ")";
+                jComboBoxDoctor.addItem(fullnameAndPin);
+            }
+        }
         
     }
+    
+    private String getIdFromFullnameAndPin(String str) {        
+        String[] array = str.split(" ");
+        String id = array[0].trim();
+        
+        return id;
+    }
+
 }

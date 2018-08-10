@@ -5,8 +5,11 @@
  */
 package dao;
 
+import java.util.Date;
 import java.util.List;
 import model.Appointment;
+import model.Doctor;
+import model.Patient;
 
 /**
  *
@@ -16,4 +19,11 @@ public interface AppointmentDao {
     
     List<Appointment> getAllAppointments();
     
+    List<Appointment> getAllAppointmentsById(int id);
+    
+    boolean deleteAppointmentById(int id);
+    
+    Appointment getAppointmentById(int id);
+    
+    boolean addAppointment(int idPatient, int idDoctor, Date dateAndTime);
 }

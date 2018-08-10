@@ -102,7 +102,7 @@
                   <Font name="MV Boli" size="24" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="HOSPITAL MANAGEMENT STSYEM"/>
+                <Property name="text" type="java.lang.String" value="HOSPITAL MANAGEMENT SYSTEM"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonBack">

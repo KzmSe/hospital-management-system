@@ -370,11 +370,11 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_ADDED);
                     this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error..");
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
                 }
                 
             } catch (DuplicateUsernameException e) {
-                JOptionPane.showMessageDialog(this, "Duplicated username..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_USERNAME);
             }
             
         } else {

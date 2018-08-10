@@ -116,7 +116,6 @@ public class PatientDaoImpl implements PatientDao{
             
         } finally {
             DbUtil.close(con, ps, psCount, rs);
-            
         }
         
         return result;
@@ -218,7 +217,7 @@ public class PatientDaoImpl implements PatientDao{
         PreparedStatement ps = null;
         boolean result = false;
         String sql = "update patient set first_name = ?, last_name = ?, age = ?, gender = ?, address = ?, phone_number = ?, patient_type = ?,"
-                + "ward_no = ?, bed_no = ?, date = ?, image = ?, blood_group = ?, pin = ? where id = ?";
+                + "ward_no = ?, bed_no = ?, date = ?, image = ?, blood_group = ? where id = ?";
         
         try {
             con = DbUtil.getConnection();
@@ -235,8 +234,7 @@ public class PatientDaoImpl implements PatientDao{
             ps.setDate(10, new Date(patient.getDate().getTime()));
             ps.setString(11, patient.getImage());
             ps.setString(12, patient.getBloodGroup());
-            ps.setString(13, patient.getPin());
-            ps.setInt(14, id);
+            ps.setInt(13, id);
             ps.executeUpdate();
             result = true;
             
@@ -274,6 +272,49 @@ public class PatientDaoImpl implements PatientDao{
         }
         
         return result;
+    }
+
+    @Override
+    public Patient getPatientByPin(String pin) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Patient patient = null;
+        String sql = "select * from patient where pin = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, pin);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                patient = new Patient();
+                patient.setId(rs.getInt("id"));
+                patient.setFirstName(rs.getString("first_name"));
+                patient.setLastName(rs.getString("last_name"));
+                patient.setAge(rs.getInt("age"));
+                patient.setGender(rs.getString("gender"));
+                patient.setAddress(rs.getString("address"));
+                patient.setPhoneNumber(rs.getString("phone_number"));
+                patient.setPatientType(rs.getString("patient_type"));
+                patient.setWardNo(rs.getInt("ward_no"));
+                patient.setBedNo(rs.getInt("bed_no"));
+                patient.setDate(rs.getDate("date"));
+                patient.setImage(rs.getString("image"));
+                patient.setBloodGroup(rs.getString("blood_group"));
+                patient.setPin(rs.getString("pin"));
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, rs);
+            
+        }
+        
+        return patient;
     }
     
 }

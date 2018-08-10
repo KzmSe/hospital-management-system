@@ -6,6 +6,7 @@
 package view.dialogs;
 
 import dao.PatientDaoImpl;
+import exception.DuplicatePinException;
 import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
 import util.Constants;
+import util.Validate;
 
 /**
  *
@@ -167,6 +169,8 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         jComboBoxBloodGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-", "1+", "2-", "2+", "3-", "3+", "4-", "4+" }));
 
         jLabel4.setText("Pin:");
+
+        jTextFieldPin.setEditable(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -451,12 +455,17 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         patient.setImage(image);
         patient.setPin(pin);
         
-        boolean result = patientDaoImpl.updatePatientById(patient, patient.getId());
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, joiningDate.toString(), pin);
+        
         if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_UPDATED);
-            this.setVisible(false);
+            if (patientDaoImpl.updatePatientById(patient, patient.getId())) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_UPDATED);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonUpdatePatientActionPerformed
 

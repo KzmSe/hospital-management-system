@@ -73,6 +73,7 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldSearch.setForeground(new java.awt.Color(204, 204, 204));
         jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
         jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,6 +158,7 @@ public class DoctorDetails extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jButtonDelete.setBackground(new java.awt.Color(234, 112, 91));
         jButtonDelete.setText("Delete Doctor");
         jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +167,7 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonUpdate.setBackground(new java.awt.Color(56, 104, 149));
         jButtonUpdate.setText("Update Doctor");
         jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +176,7 @@ public class DoctorDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdd.setBackground(new java.awt.Color(70, 175, 4));
         jButtonAdd.setText("Add Doctor");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,12 +234,16 @@ public class DoctorDetails extends javax.swing.JFrame {
         int selectedColumn = 0;
         int id = (int) jTableDoctor.getValueAt(selectedRow, selectedColumn);
         
-        boolean result = doctorDaoImpl.deleteDoctorById(id);
-        
-        if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_DELETED);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want continue?", "Delete doctor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //ok=0, cancel=2
+        if (result == 0) {
+            if (doctorDaoImpl.deleteDoctorById(id)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_DELETED);
+            }  else {
+                JOptionPane.showMessageDialog(this, "Error");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Error..");
+            return;
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -347,17 +355,17 @@ public class DoctorDetails extends javax.swing.JFrame {
         dtm.addColumn("Last Name");
         dtm.addColumn("Age");
         dtm.addColumn("Gender");
-        dtm.addColumn("Section");
+        dtm.addColumn("Department");
         dtm.addColumn("Phone Number");
         dtm.addColumn("Image");
         dtm.addColumn("Last Login Date");
         dtm.addColumn("Username");
-        dtm.addColumn("Password");
+        dtm.addColumn("Pin");
         
         List<Doctor> doctors = doctorDaoImpl.getAllDoctors();
         
         for (Doctor doctor : doctors) {
-            Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getSection(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPassword()};
+            Object[] row = {doctor.getId(), doctor.getFirstName(), doctor.getLastName(), doctor.getAge(), doctor.getGender(), doctor.getDepartment().getDepartment_name(), doctor.getPhoneNumber(), doctor.getImage(), doctor.getLastLoginDate(), doctor.getUsername(), doctor.getPin()};
             dtm.addRow(row);
         }
         

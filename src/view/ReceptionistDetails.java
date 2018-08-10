@@ -74,6 +74,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldSearch.setForeground(new java.awt.Color(204, 204, 204));
         jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
         jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,6 +139,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jButtonUpdate.setBackground(new java.awt.Color(56, 104, 149));
         jButtonUpdate.setText("Update Receptionist");
         jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +148,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonDelete.setBackground(new java.awt.Color(234, 112, 91));
         jButtonDelete.setText("Delete Receptionist");
         jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +157,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdd.setBackground(new java.awt.Color(70, 175, 4));
         jButtonAdd.setText("Add Receptionist");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,11 +242,16 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         int selectedColumn = 0;
         int id = (int) jTableReceptionist.getValueAt(selectedRow, selectedColumn);
         
-        boolean result = receptionistDaoImpl.deleteReceptionistById(id);
-        if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_DELETED);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want continue?", "Delete receptionist", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //ok=0, cancel=2
+        if (result == 0) {
+            if (receptionistDaoImpl.deleteReceptionistById(id)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_DELETED);
+            }  else {
+                JOptionPane.showMessageDialog(this, "Error");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Error");
+            return;
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -348,12 +357,11 @@ public class ReceptionistDetails extends javax.swing.JFrame {
         dtm.addColumn("Phone Number");
         dtm.addColumn("Last Login Date");
         dtm.addColumn("Username");
-        dtm.addColumn("Password");
         
         List<Receptionist> receptionists = receptionistDaoImpl.getAllReceptionists();
         
         for (Receptionist receptionist : receptionists) {
-            Object[] row = {receptionist.getId(), receptionist.getFirstName(), receptionist.getLastName(), receptionist.getAge(), receptionist.getGender(), receptionist.getAddress(), receptionist.getPhoneNumber(), receptionist.getLastLoginDate(), receptionist.getUsername(), receptionist.getPassword()};
+            Object[] row = {receptionist.getId(), receptionist.getFirstName(), receptionist.getLastName(), receptionist.getAge(), receptionist.getGender(), receptionist.getAddress(), receptionist.getPhoneNumber(), receptionist.getLastLoginDate(), receptionist.getUsername()};
             dtm.addRow(row);
         }
         

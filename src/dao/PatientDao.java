@@ -23,6 +23,8 @@ public interface PatientDao {
     
     Patient getPatientById(int id);
     
+    Patient getPatientByPin(String pin);
+    
     boolean updatePatientById(Patient patient, int id);
     
     boolean deletePatientById(int id);

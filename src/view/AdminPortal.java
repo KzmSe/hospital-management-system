@@ -433,7 +433,7 @@ public class AdminPortal extends javax.swing.JFrame {
 
     private void jPanelAppointmentsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMousePressed
         String backAction = "adminPortal";
-        new Appointments(false, true, true, backAction).setVisible(true);
+        new Appointments(false, true, true, backAction, null, null).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanelAppointmentsMousePressed
 

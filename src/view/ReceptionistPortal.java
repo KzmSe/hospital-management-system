@@ -225,7 +225,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
 
     private void jButtonAppoinmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAppoinmentsActionPerformed
         String backAction = "receptionistPortal";
-        new Appointments(true, true, true, backAction).setVisible(true);
+        new Appointments(true, true, true, backAction, null, currentReceptionist).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAppoinmentsActionPerformed
 

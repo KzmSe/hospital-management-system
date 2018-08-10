@@ -69,8 +69,8 @@ public class DialogAddPatient extends javax.swing.JDialog {
         jComboBoxAddress = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jComboBoxBloodGroup = new javax.swing.JComboBox<>();
-        jTextFieldPin = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jFormattedTextFieldPin = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxBedNumber = new javax.swing.JComboBox<>();
@@ -159,6 +159,12 @@ public class DialogAddPatient extends javax.swing.JDialog {
 
         jLabel10.setText("Pin:");
 
+        try {
+            jFormattedTextFieldPin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -168,15 +174,15 @@ public class DialogAddPatient extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextFieldPhoneNumber)
-                    .addComponent(jComboBoxAddress, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxAddress, 0, 194, Short.MAX_VALUE)
                     .addComponent(jComboBoxBloodGroup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel11)
                             .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jFormattedTextFieldPin))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -197,7 +203,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jFormattedTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -424,7 +430,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         Date joiningDate = jDateChooserJoiningDate.getDate();
         int wardNumber = Integer.parseInt((String)jComboBoxWardNumber.getSelectedItem());
         int bedNumber = Integer.parseInt((String)jComboBoxBedNumber.getSelectedItem());
-        String pin = jTextFieldPin.getText();
+        String pin = jFormattedTextFieldPin.getText();
         String gender = null;
         String patientType = null;
         String image = null;
@@ -470,11 +476,11 @@ public class DialogAddPatient extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_ADDED);
                     this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error..");
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
                 }
                 
             } catch (DuplicatePinException e) {
-                JOptionPane.showMessageDialog(this, "Duplicated pin..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_PIN);
             }
             
         } else {
@@ -536,6 +542,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBoxWardNumber;
     private com.toedter.calendar.JDateChooser jDateChooserJoiningDate;
     private javax.swing.JFormattedTextField jFormattedTextFieldPhoneNumber;
+    private javax.swing.JFormattedTextField jFormattedTextFieldPin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -563,7 +570,6 @@ public class DialogAddPatient extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldAge;
     private javax.swing.JTextField jTextFieldFirstName;
     private javax.swing.JTextField jTextFieldLastName;
-    private javax.swing.JTextField jTextFieldPin;
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {

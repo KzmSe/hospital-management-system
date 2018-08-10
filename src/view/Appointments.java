@@ -5,13 +5,20 @@
  */
 package view;
 
+import dao.AppointmentDaoImpl;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.Appointment;
+import model.Doctor;
 import model.Receptionist;
+import util.Constants;
 import view.dialogs.DialogAddAppointment;
+import view.dialogs.DialogUpdateAppointment;
 
 /**
  *
@@ -20,21 +27,26 @@ import view.dialogs.DialogAddAppointment;
 public class Appointments extends javax.swing.JFrame {
 
     private DefaultTableModel dtm;
+    private AppointmentDaoImpl appointmentDaoImpl = new AppointmentDaoImpl();
     private boolean addAppointmentButton;
     private boolean updateAppointmentButton;
     private boolean deleteAppointmentButton;
+    private Receptionist currentReceptionist;
+    private Doctor currentDoctor;
     String backAction;
     
     public Appointments() {
         initComponents();
     }
     
-    public Appointments(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction) {
+    public Appointments(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Doctor currentDoctor, Receptionist currentReceptionist) {
         this();
         this.addAppointmentButton = addButtonVisible;
         this.updateAppointmentButton = updateButtonVisible;
         this.deleteAppointmentButton = deleteButtonVisible;
         this.backAction = backAction;
+        this.currentReceptionist = currentReceptionist;
+        this.currentDoctor = currentDoctor;
         customInit();
     }
 
@@ -79,6 +91,7 @@ public class Appointments extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldSearch.setForeground(new java.awt.Color(204, 204, 204));
         jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
         jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,6 +156,7 @@ public class Appointments extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jButtonUpdate.setBackground(new java.awt.Color(56, 104, 149));
         jButtonUpdate.setText("Update Appointment");
         jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +165,7 @@ public class Appointments extends javax.swing.JFrame {
             }
         });
 
+        jButtonDelete.setBackground(new java.awt.Color(234, 112, 91));
         jButtonDelete.setText("Delete Appointment");
         jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +174,7 @@ public class Appointments extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdd.setBackground(new java.awt.Color(70, 175, 4));
         jButtonAdd.setText("Add Appointment");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,35 +249,40 @@ public class Appointments extends javax.swing.JFrame {
             new AdminPortal().setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
-            new ReceptionistPortal().setVisible(true);
+            new ReceptionistPortal(currentReceptionist).setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("doctorPortal")) {
-            new DoctorPortal().setVisible(true);
+            new DoctorPortal(currentDoctor).setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-//        int selectedRow = jTableAppointment.getSelectedRow();
-//        int selectedColumn = 0;
-//        int id = (int) jTableAppointment.getValueAt(selectedRow, selectedColumn);
-//
-//        Receptionist receptionist = receptionistDaoImpl.getReceptionistById(id);
-//
-//        new DialogUpdateReceptionist(receptionist).setVisible(true);
+        int selectedRow = jTableAppointment.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableAppointment.getValueAt(selectedRow, selectedColumn);
+
+        Appointment appointment = appointmentDaoImpl.getAppointmentById(id);
+
+        new DialogUpdateAppointment(appointment).setVisible(true);
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-//        int selectedRow = jTableAppointment.getSelectedRow();
-//        int selectedColumn = 0;
-//        int id = (int) jTableAppointment.getValueAt(selectedRow, selectedColumn);
-//
-//        boolean result = receptionistDaoImpl.deleteReceptionistById(id);
-//        if (result) {
-//            JOptionPane.showMessageDialog(this, "Receptionist deleted..");
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Error");
-//        }
+        int selectedRow = jTableAppointment.getSelectedRow();
+        int selectedColumn = 0;
+        int id = (int) jTableAppointment.getValueAt(selectedRow, selectedColumn);
+
+        int result = JOptionPane.showConfirmDialog(this, "Do you want continue?", "Delete appointment", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //ok=0, cancel=2
+        if (result == 0) {
+            if (appointmentDaoImpl.deleteAppointmentById(id)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_APPOINTMENT_DELETED);
+            }  else {
+                JOptionPane.showMessageDialog(this, "Error");
+            }
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
@@ -365,14 +386,32 @@ public class Appointments extends javax.swing.JFrame {
         };
         
         dtm.addColumn("ID");
-        dtm.addColumn("Doctor Id");
-        dtm.addColumn("Doctor Fullname");
-        dtm.addColumn("Patient Id");
         dtm.addColumn("Patient Fullname");
+        dtm.addColumn("Patient Pin");
+        dtm.addColumn("Doctor Fullname");
+        dtm.addColumn("Doctor Department");
+        dtm.addColumn("Doctor Pin");
         dtm.addColumn("Date");
         
-        //get appointments
-        //refresh table rows
+        if (currentDoctor != null) {
+            List<Appointment> appointments = appointmentDaoImpl.getAllAppointmentsById(currentDoctor.getId());
+            
+            for (Appointment appointment : appointments) {
+                String patient_fullname = appointment.getPatient().getFirstName() + " " + appointment.getPatient().getLastName();
+                String doctor_fullname = appointment.getDoctor().getFirstName() + " " + appointment.getDoctor().getLastName();
+                Object[] row = {appointment.getId(), patient_fullname, appointment.getPatient().getPin(), doctor_fullname, appointment.getDoctor().getDepartment().getDepartment_name(), appointment.getDoctor().getPin(), appointment.getDate()};
+                dtm.addRow(row);
+            }
+        } else {
+            List<Appointment> appointments = appointmentDaoImpl.getAllAppointments();
+            
+            for (Appointment appointment : appointments) {
+                String patient_fullname = appointment.getPatient().getFirstName() + " " + appointment.getPatient().getLastName();
+                String doctor_fullname = appointment.getDoctor().getFirstName() + " " + appointment.getDoctor().getLastName();
+                Object[] row = {appointment.getId(), patient_fullname, appointment.getPatient().getPin(), doctor_fullname, appointment.getDoctor().getDepartment().getDepartment_name(), appointment.getDoctor().getPin(), appointment.getDate()};
+                dtm.addRow(row);
+            }
+        }
         
         jTableAppointment.setModel(dtm);
     }

@@ -5,6 +5,8 @@
  */
 package dao;
 
+import exception.DuplicatePinException;
+import exception.DuplicateUsernameAndPinException;
 import exception.DuplicateUsernameException;
 import java.util.List;
 import model.Doctor;
@@ -21,9 +23,13 @@ public interface DoctorDao {
     
     Doctor getDoctorById(int id);
     
+    Doctor getDoctorByPin(String pin);
+    
+    List<Doctor> getDoctorsByDepartment(int id_department);
+    
     boolean deleteDoctorById(int id);
     
-    boolean addDoctor(Doctor doctor) throws DuplicateUsernameException;
+    boolean addDoctor(Doctor doctor) throws DuplicateUsernameAndPinException, DuplicateUsernameException, DuplicatePinException;
     
     boolean updateDoctorById(Doctor doctor, int id);
     

@@ -195,7 +195,7 @@ public class DoctorPortal extends javax.swing.JFrame {
 
     private void jButtonAppoinmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAppoinmentsActionPerformed
         String backAction = "doctorPortal";
-        new Appointments(false, false, true, backAction).setVisible(true);
+        new Appointments(false, false, true, backAction, currentDoctor, null).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAppoinmentsActionPerformed
 

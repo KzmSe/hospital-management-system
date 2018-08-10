@@ -6,12 +6,19 @@
 package view.dialogs;
 
 
+import dao.DepartmentDaoImpl;
 import dao.DoctorDaoImpl;
+import exception.DuplicatePinException;
+import exception.DuplicateUsernameAndPinException;
 import exception.DuplicateUsernameException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import model.Department;
 import model.Doctor;
 import util.Constants;
 import util.Validate;
@@ -23,6 +30,8 @@ import util.Validate;
 public class DialogAddDoctor extends javax.swing.JDialog {
 
     private DoctorDaoImpl doctorDaoImpl;
+    private DepartmentDaoImpl departmentDaoImpl = new DepartmentDaoImpl();
+    private Map<String, Integer> map = new HashMap<>();
     
     public DialogAddDoctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -53,7 +62,9 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jFormattedTextFieldPhoneNumber = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBoxRank = new javax.swing.JComboBox<>();
+        jComboBoxDepartment = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jFormattedTextFieldPin = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -126,9 +137,15 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jLabel7.setText("Section:");
+        jLabel7.setText("Department:");
 
-        jComboBoxRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cardiology", "Dermatology", "Nephrology", "Allergy & Immunology", "Rheumatology", "Infectious Diseases", "Hematology/Oncology", "General Pediatrics" }));
+        jLabel4.setText("Pin:");
+
+        try {
+            jFormattedTextFieldPin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -139,10 +156,13 @@ public class DialogAddDoctor extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jFormattedTextFieldPhoneNumber)
-                    .addComponent(jComboBoxRank, 0, 194, Short.MAX_VALUE)
+                    .addComponent(jComboBoxDepartment, 0, 194, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jFormattedTextFieldPin))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -155,7 +175,11 @@ public class DialogAddDoctor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxRank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jFormattedTextFieldPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -330,9 +354,11 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         String lastname = jTextFieldLastName.getText();
         int age = jTextFieldAge.getText().equals("") ? 0 : Integer.parseInt(jTextFieldAge.getText());
         String phoneNumber = jFormattedTextFieldPhoneNumber.getText();
-        String section = jComboBoxRank.getSelectedItem().toString();
+        String department_name = jComboBoxDepartment.getSelectedItem().toString();
+        int department_id = map.get(department_name);
         String username = jTextFieldUsername.getText();
         String password = String.copyValueOf(jPasswordFieldPassword.getPassword());
+        String pin = jFormattedTextFieldPin.getText();
         String gender = null;
         String image = null;
         
@@ -349,14 +375,20 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         doctor.setLastName(lastname);
         doctor.setAge(age);
         doctor.setPhoneNumber(phoneNumber);
-        doctor.setSection(section);
         doctor.setLastLoginDate(null);
         doctor.setGender(gender);
         doctor.setUsername(username);
         doctor.setPassword(password);
+        doctor.setPin(pin);
         doctor.setImage(image);
         
-        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), username, password, phoneNumber);
+        Department department = new Department();
+        department.setId(department_id);
+        department.setDepartment_name(department_name);
+        
+        doctor.setDepartment(department);
+        
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), username, password, phoneNumber, pin);
         
         if (result) {
             try {
@@ -364,11 +396,18 @@ public class DialogAddDoctor extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_ADDED);
                     this.setVisible(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error..");
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
                 }
                 
+            } catch (DuplicateUsernameAndPinException e) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_USERNAME_AND_PIN);
+                
             } catch (DuplicateUsernameException e) {
-                JOptionPane.showMessageDialog(this, "Duplicated username..");
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_USERNAME);
+                
+            } catch (DuplicatePinException e) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_PIN);
+                
             }
             
         } else {
@@ -422,11 +461,13 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroupGender;
     private javax.swing.JButton jButtonAddDoctor;
     private javax.swing.JButton jButtonSelectImage;
-    private javax.swing.JComboBox<String> jComboBoxRank;
+    private javax.swing.JComboBox<String> jComboBoxDepartment;
     private javax.swing.JFormattedTextField jFormattedTextFieldPhoneNumber;
+    private javax.swing.JFormattedTextField jFormattedTextFieldPin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -455,5 +496,27 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         buttonGroupGender.add(jRadioButtonMale);
         buttonGroupGender.add(jRadioButtonFemale);
         jRadioButtonMale.setSelected(true);
+        
+        map.put("accident and emergency", 1);
+        map.put("anaesthetics", 2);
+        map.put("cardiology", 3);
+        map.put("oncology", 4);
+        map.put("diagnostic imaging", 5);
+        map.put("ear nose and throat", 6);
+        map.put("gastroenterology", 7);
+        map.put("general surgery", 8);
+        map.put("nutrition and dietetics", 9);
+        map.put("neurology", 10);
+        map.put("rheumatology", 11);
+        
+        setDepartment();
+    }
+
+    private void setDepartment() {
+        List<Department> departments = departmentDaoImpl.getAllDepartments();
+        
+        for (Department department : departments) {
+            jComboBoxDepartment.addItem(department.getDepartment_name());
+        }
     }
 }

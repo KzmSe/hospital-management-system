@@ -13,29 +13,31 @@ public class Doctor {
     private String username;
     private String password;
     private String image;
-    private String section;
     private int age;
     private String gender;
     private String phoneNumber;
+    private String pin;
     private LocalDateTime lastLoginDate;
+    private Department department;
     private List<Appointment> appointments;
 
     public Doctor() {
         appointments = new ArrayList<>();
     }
 
-    public Doctor(int id, String firstName, String lastName, String username, String password, String image, String section, int age, String gender, String phoneNumber, LocalDateTime lastLoginDate, List<Appointment> appointments) {
+    public Doctor(int id, String firstName, String lastName, String username, String password, String image, int age, String gender, String phoneNumber, String pin, LocalDateTime lastLoginDate, Department department, List<Appointment> appointments) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.image = image;
-        this.section = section;
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+        this.pin = pin;
         this.lastLoginDate = lastLoginDate;
+        this.department = department;
         this.appointments = appointments;
         appointments = new ArrayList<>();
     }
@@ -88,14 +90,6 @@ public class Doctor {
         this.image = image;
     }
 
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
     public int getAge() {
         return age;
     }
@@ -136,9 +130,25 @@ public class Doctor {
         this.appointments = appointments;
     }
 
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
-        return "Doctor{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", password=" + password + ", image=" + image + ", section=" + section + ", age=" + age + ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", lastLoginDate=" + lastLoginDate + ", appointments=" + appointments + '}';
+        return "Doctor{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username + ", password=" + password + ", image=" + image + ", age=" + age + ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", pin=" + pin + ", lastLoginDate=" + lastLoginDate + ", department=" + department + ", appointments=" + appointments + '}';
     }
  
 }

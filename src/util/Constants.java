@@ -11,8 +11,6 @@ package util;
  */
 public class Constants {
     
-    public static final String MESSAGE_ERROR_EMPTY_FIELDS = "Please fill all fields!";
-    public static final String MESSAGE_ERROR_INVALID_USERNAME_OR_PASSWORD = "Invalid username or password\nPlease try again!";
     public static final String MESSAGE_PATIENT_ADDED = "Patient added!";
     public static final String MESSAGE_PATIENT_UPDATED = "Patient updated!";
     public static final String MESSAGE_PATIENT_DELETED = "Patient deleted!";
@@ -22,5 +20,14 @@ public class Constants {
     public static final String MESSAGE_DOCTOR_ADDED = "Doctor added!";
     public static final String MESSAGE_DOCTOR_UPDATED = "Doctor updated!";
     public static final String MESSAGE_DOCTOR_DELETED = "Doctor deleted!";
+    public static final String MESSAGE_APPOINTMENT_ADDED = "Appointment added!";
+    public static final String MESSAGE_APPOINTMENT_UPDATED = "Appointment updated!";
+    public static final String MESSAGE_APPOINTMENT_DELETED = "Appointment deleted!";
+    public static final String MESSAGE_DUPLICATED_USERNAME_AND_PIN = "Duplicated username and pin!";
+    public static final String MESSAGE_DUPLICATED_USERNAME = "Duplicated username!";
+    public static final String MESSAGE_DUPLICATED_PIN = "Duplicated pin!";
+    public static final String MESSAGE_ERROR = "Error!";
+    public static final String MESSAGE_ERROR_EMPTY_FIELDS = "Please fill all fields!";
+    public static final String MESSAGE_ERROR_INVALID_USERNAME_OR_PASSWORD = "Invalid username or password\nPlease try again!";
     
 }

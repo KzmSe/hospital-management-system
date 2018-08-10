@@ -89,6 +89,7 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldSearch.setForeground(new java.awt.Color(204, 204, 204));
         jTextFieldSearch.setText("search");
         jTextFieldSearch.setPreferredSize(new java.awt.Dimension(59, 31));
         jTextFieldSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,6 +98,9 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
         jTextFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldSearchKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldSearchKeyReleased(evt);
             }
@@ -153,6 +157,7 @@ public class PatientDetails extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
         );
 
+        jButtonDelete.setBackground(new java.awt.Color(234, 112, 91));
         jButtonDelete.setText("Delete Patient");
         jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -161,6 +166,7 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonUpdate.setBackground(new java.awt.Color(56, 104, 149));
         jButtonUpdate.setText("Update Patient");
         jButtonUpdate.setEnabled(false);
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -169,6 +175,7 @@ public class PatientDetails extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdd.setBackground(new java.awt.Color(70, 175, 4));
         jButtonAdd.setText("Add Patient");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,12 +249,16 @@ public class PatientDetails extends javax.swing.JFrame {
         int selectedRow = jTablePatient.getSelectedRow();
         int selectedColumn = 0;
         int id = (int) jTablePatient.getValueAt(selectedRow, selectedColumn);
-        
-        boolean result = patientDaoImpl.deletePatientById(id);
-        if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_DELETED);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want continue?", "Delete patient", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        //ok=0, cancel=2
+        if (result == 0) {
+            if (patientDaoImpl.deletePatientById(id)) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_PATIENT_DELETED);
+            }  else {
+                JOptionPane.showMessageDialog(this, "Error");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Error");
+            return;
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -269,13 +280,13 @@ public class PatientDetails extends javax.swing.JFrame {
             new AdminPortal().setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
-            new ReceptionistPortal().setVisible(true);
+            new ReceptionistPortal(currentReceptionist).setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jTextFieldSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldSearchMousePressed
-        jTextFieldSearch.setText("");
+        
     }//GEN-LAST:event_jTextFieldSearchMousePressed
 
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
@@ -287,6 +298,10 @@ public class PatientDetails extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         setTableModel();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jTextFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyPressed
+        
+    }//GEN-LAST:event_jTextFieldSearchKeyPressed
 
     /**
      * @param args the command line arguments
