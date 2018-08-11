@@ -27,11 +27,13 @@ public interface DoctorDao {
     
     List<Doctor> getDoctorsByDepartment(int id_department);
     
+    List<Doctor> getDoctorsByDepartment(String departmentName);
+    
     boolean deleteDoctorById(int id);
     
     boolean addDoctor(Doctor doctor) throws DuplicateUsernameAndPinException, DuplicateUsernameException, DuplicatePinException;
     
-    boolean updateDoctorById(Doctor doctor, int id);
+    boolean updateDoctorById(Doctor doctor, boolean usernameChanged) throws DuplicateUsernameException;
     
     boolean updateLastLoginDate(Doctor doctor);
 }

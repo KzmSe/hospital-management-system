@@ -267,34 +267,54 @@ public class DoctorDaoImpl implements DoctorDao{
     }
 
     @Override
-    public boolean updateDoctorById(Doctor doctor, int id) {
+    public boolean updateDoctorById(Doctor doctor, boolean usernameChanged) throws DuplicateUsernameException{
         Connection con = null;
         PreparedStatement ps = null;
+        PreparedStatement psCount = null;
+        int count = 0;
+        ResultSet rs = null;
         boolean result = false;
+        String sqlCount = "select count(*) as username_count from doctor where username = ? and id != ?";
         String sql = "update doctor set first_name = ?, last_name = ?, age = ?, gender = ?, id_department = ?, phone_number = ?,"
                 + "username = ?, password = ?, image = ? where id = ?";
         
         try {
             con = DbUtil.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, doctor.getFirstName());
-            ps.setString(2, doctor.getLastName());
-            ps.setInt(3, doctor.getAge());
-            ps.setString(4, doctor.getGender());
-            ps.setInt(5, doctor.getDepartment().getId());
-            ps.setString(6, doctor.getPhoneNumber());
-            ps.setString(7, doctor.getUsername());
-            ps.setString(8, doctor.getPassword());
-            ps.setString(9, doctor.getImage());
-            ps.setInt(10, id);
-            ps.executeUpdate();
-            result = true;
             
-        } catch (Exception e) {
+            if (usernameChanged) {
+                psCount = con.prepareStatement(sqlCount);
+                psCount.setString(1, doctor.getUsername());
+                psCount.setInt(2, doctor.getId());
+                rs = psCount.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("username_count");
+                }
+            }
+            
+            if (count == 0) {
+                ps.setString(1, doctor.getFirstName());
+                ps.setString(2, doctor.getLastName());
+                ps.setInt(3, doctor.getAge());
+                ps.setString(4, doctor.getGender());
+                ps.setInt(5, doctor.getDepartment().getId());
+                ps.setString(6, doctor.getPhoneNumber());
+                ps.setString(7, doctor.getUsername());
+                ps.setString(8, doctor.getPassword());
+                ps.setString(9, doctor.getImage());
+                ps.setInt(10, doctor.getId());
+                ps.executeUpdate();
+                result = true;
+            } else {
+                throw new DuplicateUsernameException();
+            }
+            
+            
+        } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            DbUtil.close(con, ps, null);
+            DbUtil.close(con, ps, psCount, rs);
             
         }
         
@@ -420,6 +440,54 @@ public class DoctorDaoImpl implements DoctorDao{
         }
         
         return doctor;
+    }
+
+    @Override
+    public List<Doctor> getDoctorsByDepartment(String departmentName) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Doctor> doctors = new ArrayList<>();
+        String sql = "select dc.id as id_doctor, dc.first_name, dc.last_name, dc.username, dc.password, dc.image, dc.age, dc.gender, dc.phone_number, dc.last_login_date, dc.pin, dp.id as id_department, dp.department_name from doctor dc inner join department dp on dc.id_department=dp.id where dp.department_name = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, departmentName);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Doctor doctor = new Doctor();
+                doctor.setId(rs.getInt("id_doctor"));
+                doctor.setFirstName(rs.getString("first_name"));
+                doctor.setLastName(rs.getString("last_name"));
+                doctor.setGender(rs.getString("gender"));
+                doctor.setAge(rs.getInt("age"));
+                doctor.setPhoneNumber(rs.getString("phone_number"));
+                doctor.setUsername(rs.getNString("username"));
+                doctor.setPassword(rs.getNString("password"));
+                doctor.setImage(rs.getString("image"));
+                doctor.setPin(rs.getString("pin"));
+                
+                Department department = new Department();
+                department.setId(rs.getInt("id_department"));
+                department.setDepartment_name(rs.getString("department_name"));
+                
+                doctor.setDepartment(department);
+                doctor.setLastLoginDate(rs.getTimestamp("last_login_date") == null ? null : rs.getTimestamp("last_login_date").toLocalDateTime());
+                
+                doctors.add(doctor);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, rs);
+            
+        }
+        
+        return doctors;
     }
     
 }

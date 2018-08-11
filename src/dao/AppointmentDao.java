@@ -26,4 +26,6 @@ public interface AppointmentDao {
     Appointment getAppointmentById(int id);
     
     boolean addAppointment(int idPatient, int idDoctor, Date dateAndTime);
+    
+    boolean updateAppointment(int idPatient, int idDoctor, Date dateAndTime, int id);
 }

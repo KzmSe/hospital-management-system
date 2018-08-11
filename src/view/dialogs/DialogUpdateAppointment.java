@@ -11,6 +11,7 @@ import dao.DoctorDaoImpl;
 import dao.PatientDaoImpl;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.lang.invoke.ConstantCallSite;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import model.Appointment;
 import model.Department;
 import model.Doctor;
 import model.Patient;
+import util.Constants;
 
 /**
  *
@@ -228,21 +230,13 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
 
         Date dateAndTime = jDateChooser1.getDate();
 
-//        boolean result = appointmentDaoImpl.updateAppointment(idPatient, idDoctor, dateAndTime);
-//        if (result) {
-//            JOptionPane.showMessageDialog(this, "Appointment updated..");
-//
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Error..");
-//
-//        }
+        boolean result = appointmentDaoImpl.updateAppointment(idPatient, idDoctor, dateAndTime, appointment.getId());
+        if (result) {
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_APPOINTMENT_UPDATED);
 
-        //        Thu Aug 02 12:37:40 AZT 2018 bu formati localDateTime-a cevirmek lazimdir
-        //        String date = "Tuesday, Aug 16, 2016 12:10:56 PM";
-        //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, HH:mm:ss, yyyy");
-        //        LocalDateTime dateAndTime = LocalDateTime.parse(jSpinner1.getValue().toString(), formatter);
-        //        System.out.println(dateAndTime);
-
+        } else {
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+        }
     }//GEN-LAST:event_jButtonUpdateAppointmentActionPerformed
 
     /**
@@ -319,10 +313,11 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
         
         setPatient();
         setDepartment();
+        setDoctor(appointment.getDoctor().getDepartment().getDepartment_name());
         
         jComboBoxPatient.setSelectedItem(appointment.getPatient().getId() + " - " + appointment.getPatient().getFirstName() + " " + appointment.getPatient().getLastName() + " " + "(" + appointment.getPatient().getPin() + ")");
         jComboBoxDepartment.setSelectedItem(appointment.getDoctor().getDepartment().getDepartment_name());
-        
+        jComboBoxDoctor.setSelectedItem(appointment.getDoctor().getId() + " - " + appointment.getDoctor().getFirstName() + " " + appointment.getDoctor().getLastName() + " " + "(" + appointment.getDoctor().getPin() + ")");
         
         jComboBoxDepartment.addItemListener(this);
     }
@@ -365,5 +360,14 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
         String id = array[0].trim();
         
         return id;
+    }
+
+    private void setDoctor(String departmentName) {
+        List<Doctor> doctors = doctorDaoImpl.getDoctorsByDepartment(departmentName);
+        jComboBoxDoctor.removeAllItems();
+            for (Doctor doctor : doctors) {
+                String fullnameAndPin =doctor.getId() + " - " + doctor.getFirstName() + " " + doctor.getLastName() + " " + "(" + doctor.getPin() + ")";
+                jComboBoxDoctor.addItem(fullnameAndPin);
+            }
     }
 }

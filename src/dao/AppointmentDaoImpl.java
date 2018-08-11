@@ -209,6 +209,35 @@ public class AppointmentDaoImpl implements AppointmentDao{
         
         return appointments;
     }
+
+    @Override
+    public boolean updateAppointment(int idPatient, int idDoctor, Date dateAndTime, int id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update appointment set id_patient = ?, id_doctor = ?, date = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idPatient);
+            ps.setInt(2, idDoctor);
+            ps.setTimestamp(3, new java.sql.Timestamp(dateAndTime.getTime()));
+            ps.setInt(4, id);
+            ps.executeUpdate();
+            
+            result = true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
     
     
     

@@ -7,6 +7,7 @@ package view.dialogs;
 
 import dao.DepartmentDaoImpl;
 import dao.DoctorDaoImpl;
+import exception.DuplicateUsernameException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import util.Validate;
 public class DialogUpdateDoctor extends javax.swing.JDialog {
 
     private Doctor doctor;
+    private boolean usernameChanged = false;
     private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
     private DepartmentDaoImpl departmentDaoImpl = new DepartmentDaoImpl();
     private Map<String, Integer> map = new HashMap<>();
@@ -374,7 +376,15 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         doctor.setLastName(lastname);
         doctor.setAge(age);
         doctor.setPhoneNumber(phoneNumber);
-        doctor.setUsername(username);
+        
+        if (doctor.getUsername().equals(username)) {
+            doctor.setUsername(username);
+            
+        } else {
+            doctor.setUsername(username);
+            usernameChanged = true;
+        }
+        
         doctor.setPassword(password);
         doctor.setGender(gender);
         doctor.setPin(pin);
@@ -389,13 +399,17 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, username, password);
         
         if (result) {
-            if (doctorDaoImpl.updateDoctorById(doctor, doctor.getId())) {
-                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_UPDATED);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
-            }
-            
+            try {
+                if (doctorDaoImpl.updateDoctorById(doctor, usernameChanged)) {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_DOCTOR_UPDATED);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+                }
+                
+            } catch (DuplicateUsernameException e) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_USERNAME);
+            }    
         } else {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
