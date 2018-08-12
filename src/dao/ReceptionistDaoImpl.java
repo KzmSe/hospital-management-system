@@ -196,34 +196,53 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
     }
 
     @Override
-    public boolean updateReceptionistById(Receptionist receptionist, int id) {
+    public boolean updateReceptionistById(Receptionist receptionist, boolean usernameChanged) throws DuplicateUsernameException{
         Connection con = null;
         PreparedStatement ps = null;
+        PreparedStatement psCount = null;
+        int count = 0;
+        ResultSet rs = null;
         boolean result = false;
+        String sqlCount = "select count(*) as username_count from receptionist where username = ? and id != ?";
         String sql = "update receptionist set first_name = ?, last_name = ?, age = ?, gender = ?, address = ?, phone_number = ?,"
                 + "username = ?, password = ?, image = ? where id = ?";
         
         try {
             con = DbUtil.getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, receptionist.getFirstName());
-            ps.setString(2, receptionist.getLastName());
-            ps.setInt(3, receptionist.getAge());
-            ps.setString(4, receptionist.getGender());
-            ps.setString(5, receptionist.getAddress());
-            ps.setString(6, receptionist.getPhoneNumber());
-            ps.setString(7, receptionist.getUsername());
-            ps.setString(8, receptionist.getPassword());
-            ps.setString(9, receptionist.getImage());
-            ps.setInt(10, id);
-            ps.executeUpdate();
-            result = true;
             
-        } catch (Exception e) {
+            if (usernameChanged) {
+                psCount = con.prepareStatement(sqlCount);
+                psCount.setString(1, receptionist.getUsername());
+                psCount.setInt(2, receptionist.getId());
+                rs = psCount.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("username_count");
+                }
+            }
+            
+            if (count == 0) {
+                ps.setString(1, receptionist.getFirstName());
+                ps.setString(2, receptionist.getLastName());
+                ps.setInt(3, receptionist.getAge());
+                ps.setString(4, receptionist.getGender());
+                ps.setString(5, receptionist.getAddress());
+                ps.setString(6, receptionist.getPhoneNumber());
+                ps.setString(7, receptionist.getUsername());
+                ps.setString(8, receptionist.getPassword());
+                ps.setString(9, receptionist.getImage());
+                ps.setInt(10, receptionist.getId());
+                ps.executeUpdate();
+                result = true;
+            } else {
+                throw new DuplicateUsernameException();
+            }
+            
+        } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            DbUtil.close(con, ps, null);
+            DbUtil.close(con, ps, psCount, rs);
             
         }
         

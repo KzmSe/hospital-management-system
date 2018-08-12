@@ -23,7 +23,7 @@ public interface ReceptionisDao {
     
     Receptionist getReceptionistById(int id);
     
-    boolean updateReceptionistById(Receptionist receptionist, int id);
+    boolean updateReceptionistById(Receptionist receptionist, boolean usernameChanged) throws DuplicateUsernameException;
     
     boolean deleteReceptionistById(int id);
     

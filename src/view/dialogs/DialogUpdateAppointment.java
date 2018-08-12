@@ -175,7 +175,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +207,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +233,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
         boolean result = appointmentDaoImpl.updateAppointment(idPatient, idDoctor, dateAndTime, appointment.getId());
         if (result) {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_APPOINTMENT_UPDATED);
-
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
         }

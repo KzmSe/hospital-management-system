@@ -6,12 +6,14 @@
 package view.dialogs;
 
 import dao.ReceptionistDaoImpl;
+import exception.DuplicateUsernameException;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Receptionist;
 import util.Constants;
+import util.Validate;
 
 /**
  *
@@ -21,6 +23,7 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
 
     private Receptionist receptionist;
     private ReceptionistDaoImpl receptionistDaoImpl;
+    private boolean usernameChanged = false;
     
     public DialogUpdateReceptionist(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -354,17 +357,34 @@ public class DialogUpdateReceptionist extends javax.swing.JDialog {
         receptionist.setAge(age);
         receptionist.setPhoneNumber(phoneNumber);
         receptionist.setAddress(address);
-        receptionist.setUsername(username);
+        
+        if (receptionist.getUsername().equals(username)) {
+            receptionist.setUsername(username);
+        } else {
+            receptionist.setUsername(username);
+            usernameChanged = true;
+        }
+        
         receptionist.setPassword(password);
         receptionist.setGender(gender);
         receptionist.setImage(image);
         
-        boolean result = receptionistDaoImpl.updateReceptionistById(receptionist, receptionist.getId());
+        boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, username, password);
+        
         if (result) {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_UPDATED);
-            this.setVisible(false);
+            try {
+                if (receptionistDaoImpl.updateReceptionistById(receptionist, usernameChanged)) {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_RECEPTIONIST_UPDATED);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+                }
+                
+            } catch (DuplicateUsernameException e) {
+                JOptionPane.showMessageDialog(this, Constants.MESSAGE_DUPLICATED_USERNAME);
+            }    
         } else {
-            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR);
+            JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonUpdateReceptionistActionPerformed
 
