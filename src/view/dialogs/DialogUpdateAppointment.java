@@ -72,6 +72,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel18.setBackground(new java.awt.Color(54, 71, 96));
 

@@ -51,6 +51,7 @@ public class DoctorPortal extends javax.swing.JFrame {
         jLabelLastLoginDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 

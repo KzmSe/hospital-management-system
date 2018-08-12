@@ -72,6 +72,7 @@ public class DialogAddReceptionist extends javax.swing.JDialog {
         jButtonAddReceptionist = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(54, 71, 96));
 
