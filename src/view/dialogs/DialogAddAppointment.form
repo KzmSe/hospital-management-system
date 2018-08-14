@@ -48,7 +48,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel24" max="32767" attributes="0"/>
-                      <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jPanel19" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -57,10 +57,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="jPanel24" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel19" max="32767" attributes="0"/>
+                  <Component id="jPanel19" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -72,7 +72,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel20" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel20" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -111,14 +111,14 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jComboBoxPatient" pref="200" max="32767" attributes="0"/>
+                                      <Component id="jDateChooser1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxPatient" pref="250" max="32767" attributes="0"/>
                                       <Component id="jComboBoxDepartment" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jComboBoxDoctor" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jDateChooser1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
+                          <EmptySpace pref="252" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
