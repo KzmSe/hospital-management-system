@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Doctor;
+import model.RootUser;
 import util.Constants;
 import view.dialogs.DialogAddDoctor;
 import view.dialogs.DialogUpdateDoctor;
@@ -25,10 +26,16 @@ import view.dialogs.DialogUpdateDoctor;
 public class DoctorDetails extends javax.swing.JFrame {
 
     private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
+    private RootUser currentRootUser;
     private DefaultTableModel dtm;
     
     public DoctorDetails() {
         initComponents();
+    }
+    
+    public DoctorDetails(RootUser currentRootUser) {
+        this();
+        this.currentRootUser = currentRootUser;
         customInit();
     }
 
@@ -260,7 +267,7 @@ public class DoctorDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        new AdminPortal().setVisible(true);
+        new AdminPortal(currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 

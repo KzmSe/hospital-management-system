@@ -9,11 +9,16 @@ package view.dialogs;
 import dao.PatientDaoImpl;
 import exception.DuplicatePinException;
 import exception.DuplicateUsernameException;
+import java.io.File;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Enumeration;
+import javafx.stage.FileChooser;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
@@ -30,6 +35,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
 
     private PatientDaoImpl patientDaoImpl;
     private Receptionist currentReceptionist;
+    private String imagePath;
     
     public DialogAddPatient(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -311,6 +317,11 @@ public class DialogAddPatient extends javax.swing.JDialog {
         );
 
         jButtonSelectImage.setText("Select Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
 
         jButtonAddPatient.setText("ADD PATIENT");
         jButtonAddPatient.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +465,6 @@ public class DialogAddPatient extends javax.swing.JDialog {
         String pin = jFormattedTextFieldPin.getText();
         String gender = null;
         String patientType = null;
-        String image = null;
         
         Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
         while (genderButtons.hasMoreElements()) {
@@ -484,7 +494,7 @@ public class DialogAddPatient extends javax.swing.JDialog {
         patient.setBedNo(bedNumber);
         patient.setGender(gender);
         patient.setPatientType(patientType);
-        patient.setImage(image);
+        patient.setImage(imagePath);
         patient.setPin(pin);
         patient.setReceptionist(currentReceptionist);
         
@@ -509,6 +519,15 @@ public class DialogAddPatient extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_jButtonAddPatientActionPerformed
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        File file = fileChooser.getSelectedFile();
+        imagePath = file.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
 
     /**
      * @param args the command line arguments

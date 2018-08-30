@@ -36,4 +36,6 @@ public interface DoctorDao {
     boolean updateDoctorById(Doctor doctor, boolean usernameChanged) throws DuplicateUsernameException;
     
     boolean updateLastLoginDate(Doctor doctor);
+    
+    boolean updatePassword(Doctor doctor);
 }

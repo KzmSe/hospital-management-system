@@ -16,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 import model.Appointment;
 import model.Doctor;
 import model.Receptionist;
+import model.RootUser;
 import util.Constants;
 import view.dialogs.DialogAddAppointment;
 import view.dialogs.DialogUpdateAppointment;
@@ -32,6 +33,7 @@ public class Appointments extends javax.swing.JFrame {
     private boolean updateAppointmentButton;
     private boolean deleteAppointmentButton;
     private Receptionist currentReceptionist;
+    private RootUser currentRootUser;
     private Doctor currentDoctor;
     String backAction;
     
@@ -39,13 +41,14 @@ public class Appointments extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Appointments(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Doctor currentDoctor, Receptionist currentReceptionist) {
+    public Appointments(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Doctor currentDoctor, Receptionist currentReceptionist, RootUser currentRootUser) {
         this();
         this.addAppointmentButton = addButtonVisible;
         this.updateAppointmentButton = updateButtonVisible;
         this.deleteAppointmentButton = deleteButtonVisible;
         this.backAction = backAction;
         this.currentReceptionist = currentReceptionist;
+        this.currentRootUser = currentRootUser;
         this.currentDoctor = currentDoctor;
         customInit();
     }
@@ -247,7 +250,7 @@ public class Appointments extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         if (backAction.equals("adminPortal")) {
-            new AdminPortal().setVisible(true);
+            new AdminPortal(currentRootUser).setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
             new ReceptionistPortal(currentReceptionist).setVisible(true);

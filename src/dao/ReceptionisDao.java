@@ -28,4 +28,6 @@ public interface ReceptionisDao {
     boolean deleteReceptionistById(int id);
     
     boolean updateLastLoginDate(Receptionist receptionist);
+    
+    boolean updatePassword(Receptionist receptionist);
 };

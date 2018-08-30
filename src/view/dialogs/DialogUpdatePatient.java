@@ -7,9 +7,12 @@ package view.dialogs;
 
 import dao.PatientDaoImpl;
 import exception.DuplicatePinException;
+import java.io.File;
 import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Patient;
@@ -24,6 +27,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
 
     private Patient patient;
     private PatientDaoImpl patientDaoImpl;
+    private String imagePath;
     
     public DialogUpdatePatient(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -318,6 +322,11 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         );
 
         jButtonSelectImage.setText("Select Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
 
         jButtonUpdatePatient.setText("UPDATE PATIENT");
         jButtonUpdatePatient.addActionListener(new java.awt.event.ActionListener() {
@@ -337,15 +346,15 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -365,7 +374,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonUpdatePatient, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -440,7 +449,6 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         String pin = jTextFieldPin.getText();
         String gender = null;
         String patientType = null;
-        String image = null;
         
         Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
         while (genderButtons.hasMoreElements()) {
@@ -469,7 +477,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         patient.setBedNo(bedNumber);
         patient.setGender(gender);
         patient.setPatientType(patientType);
-        patient.setImage(image);
+        patient.setImage(imagePath);
         patient.setPin(pin);
         
         boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, joiningDate.toString(), pin);
@@ -485,6 +493,15 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonUpdatePatientActionPerformed
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        File file = fileChooser.getSelectedFile();
+        imagePath = file.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -589,6 +606,10 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         jComboBoxBedNumber.setSelectedItem(String.valueOf(patient.getBedNo()));
         jTextFieldPin.setText(patient.getPin());
         
+        imagePath = patient.getImage();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+        
         if (patient.getGender().equals("Male")) {
             jRadioButtonMale.setSelected(true);
         } else if (patient.getGender().equals("Female")) {
@@ -599,7 +620,7 @@ public class DialogUpdatePatient extends javax.swing.JDialog {
         } else if (patient.getPatientType().equals("Outdoor")) {
             jRadioButtonOutdoor.setSelected(true);
         }
-        //setImage
+        
         
     }
 }

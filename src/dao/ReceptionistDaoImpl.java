@@ -300,6 +300,33 @@ public class ReceptionistDaoImpl implements ReceptionisDao{
         
         return result;
     }
+
+    @Override
+    public boolean updatePassword(Receptionist receptionist) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update receptionist set password = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, receptionist.getPassword());
+            ps.setInt(2, receptionist.getId());
+            ps.executeUpdate();
+            result = true;
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
     
     
     

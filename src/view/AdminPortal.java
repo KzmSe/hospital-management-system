@@ -8,6 +8,8 @@ package view;
 import dao.RootUserDaoImpl;
 import java.awt.Color;
 import model.RootUser;
+import view.dialogs.DialogChangePassword;
+import view.dialogs.DialogRootUserProfile;
 
 /**
  *
@@ -63,6 +65,7 @@ public class AdminPortal extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButtonProfile = new javax.swing.JButton();
         jLabelLastLoginDate = new javax.swing.JLabel();
+        jButtonChangePassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -328,31 +331,36 @@ public class AdminPortal extends javax.swing.JFrame {
         jLabel10.setText("Admin Portal");
 
         jButtonProfile.setText("Profile");
+        jButtonProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfileActionPerformed(evt);
+            }
+        });
 
         jLabelLastLoginDate.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jLabelLastLoginDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jButtonChangePassword.setText("Change Password");
+        jButtonChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangePasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonChangePassword))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -364,9 +372,11 @@ public class AdminPortal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jButtonProfile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonChangePassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelLastLoginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -416,24 +426,24 @@ public class AdminPortal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
     private void jPanelReceptionistDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReceptionistDetailsMousePressed
-        new ReceptionistDetails().setVisible(true);
+        new ReceptionistDetails(currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanelReceptionistDetailsMousePressed
 
     private void jPanelPatientDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPatientDetailsMousePressed
         String backAction = "adminPortal";
-        new PatientDetails(false, true, true, backAction, null).setVisible(true);
+        new PatientDetails(false, true, true, backAction, null, currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanelPatientDetailsMousePressed
 
     private void jPanelDoctorDetailsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelDoctorDetailsMousePressed
-        new DoctorDetails().setVisible(true);
+        new DoctorDetails(currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanelDoctorDetailsMousePressed
 
     private void jPanelAppointmentsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMousePressed
         String backAction = "adminPortal";
-        new Appointments(false, true, true, backAction, null, null).setVisible(true);
+        new Appointments(false, true, true, backAction, null, null, currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jPanelAppointmentsMousePressed
 
@@ -468,6 +478,15 @@ public class AdminPortal extends javax.swing.JFrame {
     private void jPanelAppointmentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelAppointmentsMouseExited
         jPanelAppointments.setBackground(new Color(240,240,240));
     }//GEN-LAST:event_jPanelAppointmentsMouseExited
+
+    private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
+        new DialogRootUserProfile(currentRootUser).setVisible(true);
+    }//GEN-LAST:event_jButtonProfileActionPerformed
+
+    private void jButtonChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangePasswordActionPerformed
+        String changePassword = "rootUser";
+        new DialogChangePassword(currentRootUser, null, null, changePassword).setVisible(true);
+    }//GEN-LAST:event_jButtonChangePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,6 +524,7 @@ public class AdminPortal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonChangePassword;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonProfile;
     private javax.swing.JLabel jLabel1;

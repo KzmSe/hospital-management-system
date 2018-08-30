@@ -489,5 +489,32 @@ public class DoctorDaoImpl implements DoctorDao{
         
         return doctors;
     }
+
+    @Override
+    public boolean updatePassword(Doctor doctor) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean result = false;
+        String sql = "update doctor set password = ? where id = ?";
+        
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, doctor.getPassword());
+            ps.setInt(2, doctor.getId());
+            ps.executeUpdate();
+            result = true;
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            DbUtil.close(con, ps, null);
+            
+        }
+        
+        return result;
+    }
     
 }

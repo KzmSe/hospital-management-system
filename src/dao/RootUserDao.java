@@ -5,6 +5,7 @@
  */
 package dao;
 
+import exception.DuplicateUsernameException;
 import model.RootUser;
 
 /**
@@ -16,4 +17,8 @@ public interface RootUserDao {
     RootUser getRootUser(String username, String password);
     
     boolean updateLastLoginDate(RootUser rootUser);
+    
+    boolean updateRootUser(RootUser rootUser, boolean usernameChanged) throws DuplicateUsernameException;
+    
+    boolean updatePassword(RootUser rootUser);
 }

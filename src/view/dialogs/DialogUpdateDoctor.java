@@ -515,24 +515,17 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         buttonGroupGender.add(jRadioButtonMale);
         buttonGroupGender.add(jRadioButtonFemale);
         
-        map.put("accident and emergency", 1);
-        map.put("anaesthetics", 2);
-        map.put("cardiology", 3);
-        map.put("oncology", 4);
-        map.put("diagnostic imaging", 5);
-        map.put("ear nose and throat", 6);
-        map.put("gastroenterology", 7);
-        map.put("general surgery", 8);
-        map.put("nutrition and dietetics", 9);
-        map.put("neurology", 10);
-        map.put("rheumatology", 11);
-        
         jTextFieldFirstName.setText(doctor.getFirstName());
         jTextFieldLastName.setText(doctor.getLastName());
         jTextFieldAge.setText(String.valueOf(doctor.getAge()));
         jFormattedTextFieldPhoneNumber.setText(doctor.getPhoneNumber());
         
-        setDepartment();
+        List<Department> departments = departmentDaoImpl.getAllDepartments();
+        for (Department department : departments) {
+            map.put(department.getDepartment_name(), department.getId());
+        }
+        
+        setDepartment(departments);
         
         jComboBoxDepartment.setSelectedItem(doctor.getDepartment().getDepartment_name());
         jTextFieldUsername.setText(doctor.getUsername());
@@ -546,9 +539,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         }
     }
     
-    private void setDepartment() {
-        List<Department> departments = departmentDaoImpl.getAllDepartments();
-        
+    private void setDepartment(List<Department> departments) {
         for (Department department : departments) {
             jComboBoxDepartment.addItem(department.getDepartment_name());
         }

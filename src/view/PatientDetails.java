@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
+import model.RootUser;
 import util.Constants;
 import view.dialogs.DialogAddPatient;
 import view.dialogs.DialogUpdatePatient;
@@ -31,19 +32,21 @@ public class PatientDetails extends javax.swing.JFrame {
     private boolean updatePatientButton;
     private boolean deletePatientButton;
     private Receptionist currentReceptionist;
-    String backAction;
+    private RootUser currentRootUser;
+    private String backAction;
     
     public PatientDetails() {
         initComponents();
     }
     
-    public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Receptionist currentReceptionist) {
+    public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Receptionist currentReceptionist, RootUser currentRootUser) {
         this();
         this.addPatientButton = addButtonVisible;
         this.updatePatientButton = updateButtonVisible;
         this.deletePatientButton = deleteButtonVisible;
         this.backAction = backAction;
         this.currentReceptionist = currentReceptionist;
+        this.currentRootUser = currentRootUser;
         customInit();
     }
 
@@ -277,7 +280,7 @@ public class PatientDetails extends javax.swing.JFrame {
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         if (backAction.equals("adminPortal")) {
-            new AdminPortal().setVisible(true);
+            new AdminPortal(currentRootUser).setVisible(true);
             this.setVisible(false);
         } else if (backAction.equals("receptionistPortal")) {
             new ReceptionistPortal(currentReceptionist).setVisible(true);

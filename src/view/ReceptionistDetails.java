@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
+import model.RootUser;
 import util.Constants;
 import view.dialogs.DialogAddReceptionist;
 import view.dialogs.DialogUpdateReceptionist;
@@ -26,10 +27,16 @@ import view.dialogs.DialogUpdateReceptionist;
 public class ReceptionistDetails extends javax.swing.JFrame {
 
     private ReceptionistDaoImpl receptionistDaoImpl = new ReceptionistDaoImpl();
+    private RootUser currentRootUser;
     private DefaultTableModel dtm;
     
     public ReceptionistDetails() {
         initComponents();
+    }
+    
+    public ReceptionistDetails(RootUser currentRootUser) {
+        this();
+        this.currentRootUser = currentRootUser;
         customInit();
     }
 
@@ -261,7 +268,7 @@ public class ReceptionistDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
-        new AdminPortal().setVisible(true);
+        new AdminPortal(currentRootUser).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonBackActionPerformed
 

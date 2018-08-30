@@ -7,6 +7,8 @@ package view;
 
 import dao.ReceptionistDaoImpl;
 import model.Receptionist;
+import view.dialogs.DialogChangePassword;
+import view.dialogs.DialogReceptionistProfile;
 
 /**
  *
@@ -97,6 +99,11 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         jButtonProfile.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
         jButtonProfile.setForeground(new java.awt.Color(204, 0, 51));
         jButtonProfile.setText("Profile");
+        jButtonProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfileActionPerformed(evt);
+            }
+        });
 
         jButtonPatientDetails.setBackground(new java.awt.Color(153, 153, 153));
         jButtonPatientDetails.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
@@ -122,6 +129,11 @@ public class ReceptionistPortal extends javax.swing.JFrame {
         jButtonChangePassword.setFont(new java.awt.Font("MV Boli", 1, 14)); // NOI18N
         jButtonChangePassword.setForeground(new java.awt.Color(204, 0, 51));
         jButtonChangePassword.setText("Change Password");
+        jButtonChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangePasswordActionPerformed(evt);
+            }
+        });
 
         jLabelLastLoginDate.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jLabelLastLoginDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -214,15 +226,24 @@ public class ReceptionistPortal extends javax.swing.JFrame {
 
     private void jButtonPatientDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPatientDetailsActionPerformed
         String backAction = "receptionistPortal";
-        new PatientDetails(true, true, true, backAction, currentReceptionist).setVisible(true);
+        new PatientDetails(true, true, true, backAction, currentReceptionist, null).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonPatientDetailsActionPerformed
 
     private void jButtonAppoinmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAppoinmentsActionPerformed
         String backAction = "receptionistPortal";
-        new Appointments(true, true, true, backAction, null, currentReceptionist).setVisible(true);
+        new Appointments(true, true, true, backAction, null, currentReceptionist, null).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAppoinmentsActionPerformed
+
+    private void jButtonProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfileActionPerformed
+        new DialogReceptionistProfile(currentReceptionist).setVisible(true);
+    }//GEN-LAST:event_jButtonProfileActionPerformed
+
+    private void jButtonChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangePasswordActionPerformed
+        String changePassword = "receptionist";
+        new DialogChangePassword(null, currentReceptionist, null, changePassword).setVisible(true);
+    }//GEN-LAST:event_jButtonChangePasswordActionPerformed
 
     /**
      * @param args the command line arguments
