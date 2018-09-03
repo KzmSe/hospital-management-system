@@ -16,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 import model.Patient;
 import model.Receptionist;
 import model.RootUser;
+import util.ConfigWindow;
 import util.Constants;
 import view.dialogs.DialogAddPatient;
 import view.dialogs.DialogUpdatePatient;
@@ -37,6 +38,7 @@ public class PatientDetails extends javax.swing.JFrame {
     
     public PatientDetails() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public PatientDetails(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Receptionist currentReceptionist, RootUser currentRootUser) {

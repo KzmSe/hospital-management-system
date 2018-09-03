@@ -96,9 +96,9 @@
                       </Group>
                       <EmptySpace pref="146" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonAddPatient" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
                           <Component id="jButtonSelectImage" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel9" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButtonAddPatient" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -558,7 +558,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonAddPatient">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ADD PATIENT"/>
+                <Property name="text" type="java.lang.String" value="ADD"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddPatientActionPerformed"/>

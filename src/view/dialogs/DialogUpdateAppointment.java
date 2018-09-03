@@ -25,6 +25,7 @@ import model.Appointment;
 import model.Department;
 import model.Doctor;
 import model.Patient;
+import util.ConfigWindow;
 import util.Constants;
 
 /**
@@ -43,6 +44,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
     public DialogUpdateAppointment(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public DialogUpdateAppointment(Appointment appointment) {
@@ -99,7 +101,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
 
         jLabel4.setText("Select Doctor");
 
-        jButtonUpdateAppointment.setText("Update Appointment");
+        jButtonUpdateAppointment.setText("UPDATE");
         jButtonUpdateAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateAppointmentActionPerformed(evt);
@@ -117,7 +119,7 @@ public class DialogUpdateAppointment extends javax.swing.JDialog implements Item
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonUpdateAppointment)
+                    .addComponent(jButtonUpdateAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)

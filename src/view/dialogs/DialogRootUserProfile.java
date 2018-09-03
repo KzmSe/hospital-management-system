@@ -9,6 +9,7 @@ import dao.RootUserDaoImpl;
 import exception.DuplicateUsernameException;
 import javax.swing.JOptionPane;
 import model.RootUser;
+import util.ConfigWindow;
 import util.Constants;
 import util.Validate;
 
@@ -25,6 +26,7 @@ public class DialogRootUserProfile extends javax.swing.JDialog {
     public DialogRootUserProfile(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public DialogRootUserProfile(RootUser rootUser) {
@@ -105,7 +107,7 @@ public class DialogRootUserProfile extends javax.swing.JDialog {
                             .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addComponent(jPasswordFieldPassword))))
-                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(334, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
@@ -127,7 +129,7 @@ public class DialogRootUserProfile extends javax.swing.JDialog {
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButtonSave)
                 .addContainerGap())
         );
@@ -190,7 +192,7 @@ public class DialogRootUserProfile extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

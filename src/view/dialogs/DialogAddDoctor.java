@@ -11,15 +11,19 @@ import dao.DoctorDaoImpl;
 import exception.DuplicatePinException;
 import exception.DuplicateUsernameAndPinException;
 import exception.DuplicateUsernameException;
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Department;
 import model.Doctor;
+import util.ConfigWindow;
 import util.Constants;
 import util.Validate;
 
@@ -29,13 +33,15 @@ import util.Validate;
  */
 public class DialogAddDoctor extends javax.swing.JDialog {
 
-    private DoctorDaoImpl doctorDaoImpl;
+    private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
     private DepartmentDaoImpl departmentDaoImpl = new DepartmentDaoImpl();
     private Map<String, Integer> map = new HashMap<>();
+    private String imagePath;
     
     public DialogAddDoctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
         customInit();
     }
 
@@ -156,9 +162,9 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(jFormattedTextFieldPhoneNumber)
-                    .addComponent(jComboBoxDepartment, 0, 194, Short.MAX_VALUE)
+                    .addComponent(jComboBoxDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -249,8 +255,13 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         );
 
         jButtonSelectImage.setText("Select Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
 
-        jButtonAddDoctor.setText("ADD DOCTOR");
+        jButtonAddDoctor.setText("ADD");
         jButtonAddDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddDoctorActionPerformed(evt);
@@ -268,15 +279,15 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -293,11 +304,11 @@ public class DialogAddDoctor extends javax.swing.JDialog {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonAddDoctor, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAddDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -345,10 +356,8 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -386,7 +395,6 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         String password = String.copyValueOf(jPasswordFieldPassword.getPassword());
         String pin = jFormattedTextFieldPin.getText();
         String gender = null;
-        String image = null;
         
         Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
         while (genderButtons.hasMoreElements()) {
@@ -406,7 +414,7 @@ public class DialogAddDoctor extends javax.swing.JDialog {
         doctor.setUsername(username);
         doctor.setPassword(password);
         doctor.setPin(pin);
-        doctor.setImage(image);
+        doctor.setImage(imagePath);
         
         Department department = new Department();
         department.setId(department_id);
@@ -440,6 +448,15 @@ public class DialogAddDoctor extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonAddDoctorActionPerformed
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        File file = fileChooser.getSelectedFile();
+        imagePath = file.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -518,8 +535,6 @@ public class DialogAddDoctor extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void customInit() {
-        doctorDaoImpl = new DoctorDaoImpl();
-        
         buttonGroupGender.add(jRadioButtonMale);
         buttonGroupGender.add(jRadioButtonFemale);
         jRadioButtonMale.setSelected(true);

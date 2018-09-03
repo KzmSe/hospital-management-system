@@ -7,6 +7,7 @@ package view;
 
 import dao.ReceptionistDaoImpl;
 import model.Receptionist;
+import util.ConfigWindow;
 import view.dialogs.DialogChangePassword;
 import view.dialogs.DialogReceptionistProfile;
 
@@ -21,6 +22,7 @@ public class ReceptionistPortal extends javax.swing.JFrame {
     
     public ReceptionistPortal() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
 
     ReceptionistPortal(Receptionist currentReceptionist) {

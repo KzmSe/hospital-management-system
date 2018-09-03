@@ -8,15 +8,19 @@ package view.dialogs;
 import dao.DepartmentDaoImpl;
 import dao.DoctorDaoImpl;
 import exception.DuplicateUsernameException;
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Department;
 import model.Doctor;
+import util.ConfigWindow;
 import util.Constants;
 import util.Validate;
 
@@ -31,10 +35,12 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
     private DoctorDaoImpl doctorDaoImpl = new DoctorDaoImpl();
     private DepartmentDaoImpl departmentDaoImpl = new DepartmentDaoImpl();
     private Map<String, Integer> map = new HashMap<>();
+    private String imagePath;
     
     public DialogUpdateDoctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public DialogUpdateDoctor(Doctor doctor) {
@@ -249,8 +255,13 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         );
 
         jButtonSelectImage.setText("Select Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
 
-        jButtonUpdateDoctor.setText("UPDATE DOCTOR");
+        jButtonUpdateDoctor.setText("UPDATE");
         jButtonUpdateDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUpdateDoctorActionPerformed(evt);
@@ -268,15 +279,15 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -295,9 +306,9 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonUpdateDoctor, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonUpdateDoctor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -382,7 +393,6 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         String password  = String.copyValueOf(jPasswordFieldPassword.getPassword());
         String pin = jTextFieldPin.getText();
         String gender = null;
-        String image = null;
         
         Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
         while (genderButtons.hasMoreElements()) {
@@ -408,7 +418,7 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         doctor.setPassword(password);
         doctor.setGender(gender);
         doctor.setPin(pin);
-        doctor.setImage(image);
+        doctor.setImage(imagePath);
         
         Department department = new Department();
         department.setId(department_id);
@@ -434,6 +444,15 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonUpdateDoctorActionPerformed
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        File file = fileChooser.getSelectedFile();
+        imagePath = file.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,6 +550,10 @@ public class DialogUpdateDoctor extends javax.swing.JDialog {
         jTextFieldUsername.setText(doctor.getUsername());
         jPasswordFieldPassword.setText(doctor.getPassword());
         jTextFieldPin.setText(doctor.getPin());
+        
+        imagePath = doctor.getImage();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
         
         if (doctor.getGender().equals("Male")) {
             jRadioButtonMale.setSelected(true);

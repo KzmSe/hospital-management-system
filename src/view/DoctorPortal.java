@@ -7,6 +7,7 @@ package view;
 
 import dao.DoctorDaoImpl;
 import model.Doctor;
+import util.ConfigWindow;
 import view.dialogs.DialogChangePassword;
 import view.dialogs.DialogDoctorProfile;
 
@@ -21,6 +22,7 @@ public class DoctorPortal extends javax.swing.JFrame {
     
     public DoctorPortal() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
 
     DoctorPortal(Doctor currentDoctor) {

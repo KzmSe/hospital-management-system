@@ -17,6 +17,7 @@ import model.Appointment;
 import model.Doctor;
 import model.Receptionist;
 import model.RootUser;
+import util.ConfigWindow;
 import util.Constants;
 import view.dialogs.DialogAddAppointment;
 import view.dialogs.DialogUpdateAppointment;
@@ -39,6 +40,7 @@ public class Appointments extends javax.swing.JFrame {
     
     public Appointments() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public Appointments(boolean addButtonVisible, boolean updateButtonVisible, boolean deleteButtonVisible, String backAction, Doctor currentDoctor, Receptionist currentReceptionist, RootUser currentRootUser) {

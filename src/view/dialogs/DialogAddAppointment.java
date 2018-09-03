@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import model.Department;
 import model.Doctor;
 import model.Patient;
+import util.ConfigWindow;
 import util.Constants;
 import util.Validate;
 
@@ -39,6 +40,7 @@ public class DialogAddAppointment extends javax.swing.JDialog implements ItemLis
     public DialogAddAppointment(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
         customInit();
     }
 
@@ -90,7 +92,7 @@ public class DialogAddAppointment extends javax.swing.JDialog implements ItemLis
 
         jLabel4.setText("Select Doctor");
 
-        jButtonAddAppointment.setText("Add Appointment");
+        jButtonAddAppointment.setText("ADD");
         jButtonAddAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAddAppointmentActionPerformed(evt);
@@ -108,7 +110,7 @@ public class DialogAddAppointment extends javax.swing.JDialog implements ItemLis
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAddAppointment)
+                    .addComponent(jButtonAddAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)

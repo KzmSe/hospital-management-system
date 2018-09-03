@@ -8,6 +8,7 @@ package view;
 import dao.RootUserDaoImpl;
 import java.awt.Color;
 import model.RootUser;
+import util.ConfigWindow;
 import view.dialogs.DialogChangePassword;
 import view.dialogs.DialogRootUserProfile;
 
@@ -22,6 +23,7 @@ public class AdminPortal extends javax.swing.JFrame {
     
     public AdminPortal() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
 
     AdminPortal(RootUser currentRootUser) {

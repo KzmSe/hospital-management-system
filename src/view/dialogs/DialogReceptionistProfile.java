@@ -7,11 +7,15 @@ package view.dialogs;
 
 import dao.ReceptionistDaoImpl;
 import exception.DuplicateUsernameException;
+import java.io.File;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import model.Receptionist;
+import util.ConfigWindow;
 import util.Constants;
 import util.Validate;
 
@@ -23,11 +27,13 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
 
     private Receptionist receptionist;
     private boolean usernameChanged = false;
+    private String imagePath;
     private ReceptionistDaoImpl receptionistDaoImpl = new ReceptionistDaoImpl();
     
     public DialogReceptionistProfile(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public DialogReceptionistProfile(Receptionist receptionist) {
@@ -248,6 +254,11 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
         );
 
         jButtonSelectImage.setText("Select Image");
+        jButtonSelectImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectImageActionPerformed(evt);
+            }
+        });
 
         jButtonUpdateReceptionist.setText("SAVE");
         jButtonUpdateReceptionist.addActionListener(new java.awt.event.ActionListener() {
@@ -267,15 +278,15 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabelImage, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -295,9 +306,9 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                        .addComponent(jButtonSelectImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonUpdateReceptionist, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonUpdateReceptionist, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -364,7 +375,6 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
         String username = jTextFieldUsername.getText();
         String password  = String.copyValueOf(jPasswordFieldPassword.getPassword());
         String gender = null;
-        String image = null;
 
         Enumeration<AbstractButton> genderButtons = buttonGroupGender.getElements();
         while (genderButtons.hasMoreElements()) {
@@ -389,7 +399,7 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
 
         receptionist.setPassword(password);
         receptionist.setGender(gender);
-        receptionist.setImage(image);
+        receptionist.setImage(imagePath);
 
         boolean result = Validate.validateEmptyFields(firstname, lastname, String.valueOf(age), phoneNumber, username, password);
 
@@ -409,6 +419,15 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, Constants.MESSAGE_ERROR_EMPTY_FIELDS);
         }
     }//GEN-LAST:event_jButtonUpdateReceptionistActionPerformed
+
+    private void jButtonSelectImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(fileChooser);
+        File file = fileChooser.getSelectedFile();
+        imagePath = file.getAbsolutePath();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+    }//GEN-LAST:event_jButtonSelectImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -495,6 +514,11 @@ public class DialogReceptionistProfile extends javax.swing.JDialog {
         jComboBoxAddress.setSelectedItem(receptionist.getAddress());
         jTextFieldUsername.setText(receptionist.getUsername());
         jPasswordFieldPassword.setText(receptionist.getPassword());
+        
+        imagePath = receptionist.getImage();
+        ImageIcon icon = new ImageIcon(imagePath);
+        jLabelImage.setIcon(icon);
+        
         if (receptionist.getGender().equals("Male")) {
             jRadioButtonMale.setSelected(true);
         } else if (receptionist.getGender().equals("Female")) {

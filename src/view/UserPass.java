@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import model.Doctor;
 import model.Receptionist;
 import model.RootUser;
+import util.ConfigWindow;
 import util.Constants;
 
 /**
@@ -28,6 +29,7 @@ public class UserPass extends javax.swing.JFrame {
     
     public UserPass() {
         initComponents();
+        ConfigWindow.centreWindow(this);
         customInit();
     }
 

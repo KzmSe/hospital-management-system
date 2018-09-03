@@ -5,6 +5,8 @@
  */
 package view;
 
+import util.ConfigWindow;
+
 /**
  *
  * @author Kazi_tg54
@@ -15,6 +17,7 @@ public class LoginAs extends javax.swing.JFrame {
     
     public LoginAs() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
 
     /**

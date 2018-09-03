@@ -91,9 +91,9 @@
                       </Group>
                       <EmptySpace pref="142" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButtonUpdateDoctor" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButtonSelectImage" alignment="1" pref="140" max="32767" attributes="0"/>
+                          <Component id="jButtonSelectImage" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButtonUpdateDoctor" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -406,10 +406,13 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Select Image"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectImageActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonUpdateDoctor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="UPDATE DOCTOR"/>
+                <Property name="text" type="java.lang.String" value="UPDATE"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonUpdateDoctorActionPerformed"/>
@@ -432,8 +435,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelImage" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabelImage" min="-2" pref="116" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -441,8 +444,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabelImage" pref="118" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabelImage" min="-2" pref="118" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

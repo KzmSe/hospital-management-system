@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Doctor;
 import model.RootUser;
+import util.ConfigWindow;
 import util.Constants;
 import view.dialogs.DialogAddDoctor;
 import view.dialogs.DialogUpdateDoctor;
@@ -31,6 +32,7 @@ public class DoctorDetails extends javax.swing.JFrame {
     
     public DoctorDetails() {
         initComponents();
+        ConfigWindow.centreWindow(this);
     }
     
     public DoctorDetails(RootUser currentRootUser) {
